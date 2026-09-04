@@ -3,5 +3,4 @@ PetLife é uma plataforma web que funciona como uma carteirinha de vacinação d
 Além do controle de vacinação, o projeto conta com:
 📍 Pontos de vacinação — página com locais onde os pets podem ser vacinados
 🐶 Adoção — espaço para anunciar cães disponíveis para doação
-💬 Depoimentos — histórias de tutores e pets que usam a plataforma
-Projeto desenvolvido como prática de front-end, unindo design no Figma com codificação manual
+💬 Depoimentos — histórias de tutores e pets que usam a plataforma.
