@@ -1,0 +1,410 @@
+/* ==========================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================== */
+:root {
+  --primary-color: #34d399;     /* Verde principal */
+  --primary-hover: #059669;     /* Verde escuro */
+  --bg-light: #f8fafc;          /* Fundo suave */
+  --bg-dark: #1b2820;           /* Fundo da secção do veterinário */
+  --text-dark: #1e293b;         /* Texto principal */
+  --text-muted: #64748b;        /* Texto secundário */
+  --border-color: #e2e8f0;      /* Linhas divisórias */
+  --card-bg: #ffffff;           /* Fundo dos cartões */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* ==========================================
+   2. NAVBAR (CABEÇALHO)
+   ========================================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary-color);
+}
+
+.foto_logo {
+  width: 36px;
+  height: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-login {
+  text-decoration: none;
+  color: var(--primary-hover);
+  border: 1.5px solid var(--primary-color);
+  padding: 8px 22px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-login:hover {
+  background-color: #ecfdf5;
+}
+
+.btn-register {
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 8px 22px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-register:hover {
+  background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   3. HERO SECTION (DESTAQUE PRINCIPAL)
+   ========================================== */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  max-width: 550px;
+}
+
+.badge-free {
+  background-color: #ecfdf5;
+  color: var(--primary-hover);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.hero-content p {
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: var(--text-dark);
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #f1f5f9;
+}
+
+/* Fundo azul decorativo da imagem Hero */
+.hero-image {
+  background-color: #e0f2fe;
+  padding: 30px;
+  border-radius: 32px;
+  border: 2px solid #bae6fd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+}
+
+/* ==========================================
+   4. RECURSOS (CARDS COM IMAGENS)
+   ========================================== */
+.features-section {
+  padding: 80px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header small {
+  color: #0284c7;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.section-header h2 {
+  font-size: 36px;
+  margin-top: 8px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background-color: var(--card-bg);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-box {
+  font-size: 24px;
+  margin-bottom: 15px;
+  background-color: #ecfdf5;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.feature-card h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+/* Imagens demonstrativas dentro dos cards */
+.card-preview {
+  margin-top: auto;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+}
+
+.card-preview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ==========================================
+   5. PASSO A PASSO (COM LINHAS SEPARADORAS)
+   ========================================== */
+.how-it-works-section {
+  background-color: #f0f9ff;
+  padding: 80px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: transparent;
+  flex: 1;
+}
+
+.step-number {
+  background-color: var(--primary-color);
+  color: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.step-item h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.step-item p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 13px;
+}/* ==========================================
+   ÁREA DO PROFISSIONAL (VETERINÁRIO)
+   ========================================== */
+.pro-section {
+  background-color: #1b2820; /* Fundo escuro do bloco */
+  color: #ffffff;
+  padding: 80px;
+  width: 100%;
+}
+
+.pro-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+/* Textos da esquerda */
+.pro-content {
+  max-width: 550px;
+}
+
+.pro-content small {
+  color: #34d399; /* Verde neon do rótulo */
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.pro-content h2 {
+  font-size: 36px;
+  margin: 12px 0 18px;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.pro-content p {
+  color: #94a3b8;
+  font-size: 16px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* Botões da seção */
+.pro-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.btn-outline-dark {
+  background: transparent;
+  border: 1px solid #34d399;
+  color: #34d399;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-dark:hover {
+  background-color: rgba(52, 211, 153, 0.1);
+}
+
+/* Imagem da direita com cantos arredondados */
+.pro-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 24px; /* Arredondamento suave da foto */
+  object-fit: cover;
+  display: block;
+}
