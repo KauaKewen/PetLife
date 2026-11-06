@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localização_PetLife</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        #map {
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+
+        @keyframes user-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); transform: scale(1); }
+            50% { transform: scale(1.15); }
+            70% { box-shadow: 0 0 0 16px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); transform: scale(1); }
+        }
+
+        @keyframes marker-bounce {
+            0% { transform: translateY(-20px) scale(0.5); opacity: 0; }
+            60% { transform: translateY(5px) scale(1.1); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .user-location-marker {
+            background-color: #3B82F6;
+            border: 3px solid #FFFFFF;
+            border-radius: 50%;
+            animation: user-pulse 2s infinite ease-in-out;
+        }
+
+        .animated-marker {
+            animation: marker-bounce 0.4s ease-out forwards;
+        }
+
+        .leaflet-interactive.animated-route-line {
+            stroke-dasharray: 10, 10;
+            animation: dash 1.5s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+
+        /* Scrollbar estilizado */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full font-sans antialiased bg-gray-100 flex flex-col md:flex-row overflow-hidden">
+
+    <button id="mobile-toggle-btn" class="md:hidden fixed top-4 right-4 z-50 bg-blue-600 text-white p-3.5 rounded-full shadow-xl hover:bg-blue-700 active:scale-95 transition-all flex items-center justify-center">
+        <i class="fa-solid fa-bars text-xl" id="toggle-icon"></i>
+    </button>
+
+    <aside id="sidebar" class="fixed md:relative inset-y-0 left-0 z-40 w-full md:w-96 bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out transform -translate-x-full md:translate-x-0 h-full max-h-screen">
+        
+        <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto my-2 md:hidden"></div>
+
+        <div class="p-4 md:p-5 bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-map-location-dot text-2xl animate-bounce"></i>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold leading-tight">MAPA</h1>
+                    <p class="text-xs text-blue-100 mt-0.5">Localização em tempo real</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3 md:p-4 border-b border-gray-100 bg-gray-50">
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Filtrar Estabelecimentos</label>
+            <div class="relative flex items-center">
+                <input type="text" id="search-input" placeholder="Buscar por nome, rua ou tipo..." class="w-full pl-10 pr-10 py-3 md:py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-sm" />
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-gray-400"></i>
+                <button id="clear-search" class="hidden absolute right-3 text-gray-400 hover:text-gray-600 p-1">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="p-3 md:p-4 border-b border-gray-100">
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Categorias de Serviços</label>
+            <div class="grid grid-cols-2 gap-2">
+                <button data-category="vaccination" class="category-btn min-h-[44px] flex items-center p-3 rounded-lg border border-gray-200 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:bg-blue-100 transition">
+                    <i class="fa-solid fa-syringe text-emerald-500 text-base mr-2"></i> Vacinação
+                </button>
+                <button data-category="vet" class="category-btn min-h-[44px] flex items-center p-3 rounded-lg border border-gray-200 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:bg-blue-100 transition">
+                    <i class="fa-solid fa-user-doctor text-indigo-500 text-base mr-2"></i> Vet / Clínicas
+                </button>
+                <button data-category="petshop" class="category-btn min-h-[44px] flex items-center p-3 rounded-lg border border-gray-200 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:bg-blue-100 transition">
+                    <i class="fa-solid fa-paw text-amber-500 text-base mr-2"></i> Pet Shops
+                </button>
+                <button data-category="hospital" class="category-btn min-h-[44px] flex items-center p-3 rounded-lg border border-gray-200 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:bg-blue-100 transition">
+                    <i class="fa-solid fa-hospital text-red-500 text-base mr-2"></i> Hospitais
+                </button>
+            </div>
+            <button data-category="all" class="category-btn w-full min-h-[44px] mt-2 py-2.5 px-3 rounded-lg bg-blue-600 border border-blue-600 text-xs font-medium text-white transition text-center shadow-sm">
+                <i class="fa-solid fa-layer-group mr-1"></i> Mostrar Todos Próximos
+            </button>
+        </div>
+
+        <div id="route-panel" class="hidden p-3 md:p-4 bg-blue-50 border-b border-blue-200 transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xs font-bold text-blue-900 uppercase tracking-wide">Simulação de Rota</h3>
+                <button id="clear-route-btn" class="text-xs text-red-600 hover:text-red-800 font-semibold flex items-center p-1">
+                    <i class="fa-solid fa-xmark mr-1"></i> Limpar Rota
+                </button>
+            </div>
+            
+            <p id="route-destination-name" class="text-sm font-semibold text-gray-800 truncate mb-2">Destino</p>
+            
+            <div class="flex space-x-2 mb-3">
+                <button data-profile="car" class="transport-btn flex-1 py-2 bg-blue-600 text-white rounded text-xs font-medium text-center shadow-sm transition">
+                    <i class="fa-solid fa-car mr-1"></i> Carro
+                </button>
+                <button data-profile="bike" class="transport-btn flex-1 py-2 bg-white text-gray-700 border border-gray-300 rounded text-xs font-medium text-center hover:bg-gray-50 transition">
+                    <i class="fa-solid fa-bicycle mr-1"></i> Bike
+                </button>
+                <button data-profile="foot" class="transport-btn flex-1 py-2 bg-white text-gray-700 border border-gray-300 rounded text-xs font-medium text-center hover:bg-gray-50 transition">
+                    <i class="fa-solid fa-walking mr-1"></i> A pé
+                </button>
+            </div>
+
+            <div class="flex justify-between items-center bg-white p-2.5 rounded border border-blue-100 text-xs">
+                <div>
+                    <span class="text-gray-500">Distância:</span>
+                    <span id="route-distance" class="font-bold text-gray-800 ml-1">0.0 km</span>
+                </div>
+                <div>
+                    <span class="text-gray-500">Tempo est.:</span>
+                    <span id="route-time" class="font-bold text-gray-800 ml-1">0 min</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <div class="px-4 py-2 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+                <span class="text-xs font-bold text-gray-600 uppercase">Locais Disponíveis</span>
+                <span id="results-count" class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded-full">0</span>
+            </div>
+            
+            <div id="locations-list" class="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 custom-scrollbar">
+            </div>
+        </div>
+
+        <div class="p-3 bg-gray-50 border-t border-gray-200 text-xs text-gray-500 flex items-center justify-between">
+            <span class="flex items-center">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+                <span>Modo Local (Sem API)</span>
+            </span>
+            <button id="recenter-btn" class="text-blue-600 hover:text-blue-800 font-medium text-xs p-1 flex items-center">
+                <i class="fa-solid fa-crosshairs mr-1"></i> Recentralizar
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 relative h-full w-full">
+        <div id="map"></div>
+
+        <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-20 bg-gray-900/80 backdrop-blur-md text-white text-xs px-4 py-2 rounded-full shadow-lg pointer-events-none flex items-center space-x-2">
+            <i class="fa-solid fa-hand-pointer text-blue-400 animate-bounce"></i>
+            <span>Clique em qualquer ponto no mapa para gerar novos locais</span>
+        </div>
+    </main>
+
+    <script>
+        const STATE = {
+            userLocation: { lat: -23.55052, lng: -46.633308 }, // Padrão: São Paulo
+            map: null,
+            userMarker: null,
+            markersGroup: null,
+            routePolyline: null,
+            routeAnimationTimer: null,
+            currentCategory: 'all',
+            selectedDestination: null,
+            transportProfile: 'car', // 'car', 'bike', 'foot'
+            placesData: []
+        };
+
+        const CATEGORY_ICONS = {
+            vaccination: { icon: 'fa-syringe', color: '#10B981', label: 'Posto de Vacinação' },
+            vet: { icon: 'fa-user-doctor', color: '#6366F1', label: 'Clínica Veterinária' },
+            petshop: { icon: 'fa-paw', color: '#F59E0B', label: 'Pet Shop' },
+            hospital: { icon: 'fa-hospital', color: '#EF4444', label: 'Hospital / PS' },
+            generic: { icon: 'fa-location-dot', color: '#6B7280', label: 'Ponto de Interesse' }
+        };
+
+        const PLACE_NAMES = {
+            vaccination: ['Centro de Imunização Central', 'Posto de Saúde Vida & Saúde', 'Unidade de Vacinação Proteção', 'Núcleo de Saúde Preventiva'],
+            vet: ['Clínica Vet Cuidado Animal', 'Hospital Veterinário São Francisco', 'VetLife Atendimento 24h', 'Centro Médico Veterinário'],
+            petshop: ['Pet Shop Mundo Animal', 'Bicho Mimado Pet Store', 'Mega Pet Center', 'Cantinho do Pet'],
+            hospital: ['Hospital Central de Especialidades', 'Pronto Socorro São Lucas', 'Centro Hospitalar Esperança', 'Clínica Médica Integrada']
+        };
+
+        const STREET_NAMES = ['Av. Principal', 'Rua das Flores', 'Alameda dos Ipês', 'Av. Central', 'Rua São José', 'Av. Brasil', 'Rua XV de Novembro'];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            setupEventListeners();
+            getUserLocation();
+        });
+
+        function initMap() {
+            STATE.map = L.map('map', { zoomControl: false }).setView([STATE.userLocation.lat, STATE.userLocation.lng], 14);
+
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 19,
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+            }).addTo(STATE.map);
+
+            L.control.zoom({ position: 'topright' }).addTo(STATE.map);
+            STATE.markersGroup = L.layerGroup().addTo(STATE.map);
+
+            STATE.map.on('click', (e) => {
+                generatePlacesAround(e.latlng.lat, e.latlng.lng);
+                showToast('Novos locais gerados ao redor do ponto clicado!');
+            });
+        }
+
+        function getUserLocation() {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        STATE.userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+                        updateLocationState();
+                    },
+                    () => {
+                        updateLocationState();
+                    },
+                    { timeout: 5000 }
+                );
+            } else {
+                updateLocationState();
+            }
+        }
+
+        function updateLocationState() {
+            STATE.map.setView([STATE.userLocation.lat, STATE.userLocation.lng], 14);
+            renderUserMarker();
+            generatePlacesAround(STATE.userLocation.lat, STATE.userLocation.lng);
+        }
+
+        function renderUserMarker() {
+            if (STATE.userMarker) STATE.map.removeLayer(STATE.userMarker);
+
+            const userIcon = L.divIcon({
+                className: 'custom-user-icon',
+                html: `<div class="w-6 h-6 user-location-marker flex items-center justify-center text-white text-xs shadow-lg"></div>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+
+            STATE.userMarker = L.marker([STATE.userLocation.lat, STATE.userLocation.lng], { icon: userIcon })
+                .addTo(STATE.map)
+                .bindPopup('<b>Você está aqui</b><br>Sua posição atual ou ponto inicial.');
+        }
+
+        function generatePlacesAround(centerLat, centerLng) {
+            STATE.placesData = [];
+            STATE.markersGroup.clearLayers();
+
+            const categories = ['vaccination', 'vet', 'petshop', 'hospital'];
+            let idCounter = 1;
+
+            categories.forEach(cat => {
+                const count = Math.floor(Math.random() * 3) + 2;
+                for (let i = 0; i < count; i++) {
+                    // Deslocamento de lat/lng dentro de um raio de ~3km
+                    const offsetLat = (Math.random() - 0.5) * 0.04;
+                    const offsetLng = (Math.random() - 0.5) * 0.04;
+
+                    const nameList = PLACE_NAMES[cat];
+                    const randomName = nameList[Math.floor(Math.random() * nameList.length)] + ` ${i + 1}`;
+                    const randomStreet = STREET_NAMES[Math.floor(Math.random() * STREET_NAMES.length)] + `, ${Math.floor(Math.random() * 900) + 100}`;
+
+                    const place = {
+                        id: idCounter++,
+                        name: randomName,
+                        category: cat,
+                        lat: centerLat + offsetLat,
+                        lng: centerLng + offsetLng,
+                        address: randomStreet,
+                        phone: `(11) 9${Math.floor(Math.random() * 8999 + 1000)}-${Math.floor(Math.random() * 8999 + 1000)}`
+                    };
+
+                    STATE.placesData.push(place);
+                }
+            });
+
+            renderPlacesOnMap();
+            renderLocationsList();
+        }
+
+        function renderPlacesOnMap() {
+            STATE.markersGroup.clearLayers();
+
+            const filtered = STATE.currentCategory === 'all' 
+                ? STATE.placesData 
+                : STATE.placesData.filter(p => p.category === STATE.currentCategory);
+
+            filtered.forEach(place => {
+                const catConfig = CATEGORY_ICONS[place.category] || CATEGORY_ICONS.generic;
+
+                const iconHtml = `
+                    <div class="animated-marker w-8 h-8 rounded-full flex items-center justify-center text-white shadow-md border-2 border-white" style="background-color: ${catConfig.color}">
+                        <i class="fa-solid ${catConfig.icon} text-sm"></i>
+                    </div>
+                `;
+
+                const markerIcon = L.divIcon({
+                    className: 'custom-place-icon',
+                    html: iconHtml,
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
+
+                const marker = L.marker([place.lat, place.lng], { icon: markerIcon }).addTo(STATE.markersGroup);
+
+                const popupContent = `
+                    <div class="p-1 max-w-xs">
+                        <span class="text-[10px] uppercase font-bold text-gray-400">${catConfig.label}</span>
+                        <h4 class="font-bold text-sm text-gray-800 mb-1">${escapeHtml(place.name)}</h4>
+                        <p class="text-xs text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1 text-gray-400"></i>${escapeHtml(place.address)}</p>
+                        <p class="text-xs text-gray-500 mb-2"><i class="fa-solid fa-phone mr-1 text-gray-400"></i>${escapeHtml(place.phone)}</p>
+                        <button onclick="selectDestinationForRoute(${place.lat}, ${place.lng}, '${escapeHtml(place.name).replace(/'/g, "\\'")}')" 
+                            class="w-full py-1.5 px-3 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs rounded transition flex items-center justify-center">
+                            <i class="fa-solid fa-route mr-1.5"></i> Simular Rota
+                        </button>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent);
+            });
+        }
+
+        function renderLocationsList() {
+            const container = document.getElementById('locations-list');
+            const countEl = document.getElementById('results-count');
+            const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
+
+            let filtered = STATE.currentCategory === 'all' 
+                ? STATE.placesData 
+                : STATE.placesData.filter(p => p.category === STATE.currentCategory);
+
+            if (searchVal) {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(searchVal) || 
+                    p.address.toLowerCase().includes(searchVal)
+                );
+            }
+
+            countEl.textContent = filtered.length;
+            container.innerHTML = '';
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass text-3xl mb-2 text-gray-300"></i>
+                        <p class="text-sm font-medium text-gray-600">Nenhum local encontrado</p>
+                        <p class="text-xs text-gray-400 mt-1">Tente mudar o filtro ou a palavra de busca.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(place => {
+                const catConfig = CATEGORY_ICONS[place.category] || CATEGORY_ICONS.generic;
+                const distKm = calculateDistance(STATE.userLocation.lat, STATE.userLocation.lng, place.lat, place.lng).toFixed(2);
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'p-3 bg-white border border-gray-200 rounded-lg shadow-sm hover:border-blue-400 transition cursor-pointer flex flex-col justify-between';
+                itemDiv.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white mt-0.5" style="background-color: ${catConfig.color}">
+                            <i class="fa-solid ${catConfig.icon} text-xs"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-sm font-semibold text-gray-800 truncate">${escapeHtml(place.name)}</h4>
+                            <p class="text-xs text-gray-500 truncate mt-0.5">${escapeHtml(place.address)}</p>
+                            <span class="inline-block mt-1 text-[10px] font-bold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+                                <i class="fa-solid fa-person-walking mr-0.5"></i> ${distKm} km de você
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-gray-100 flex justify-end space-x-2">
+                        <button class="focus-btn text-xs font-medium text-gray-600 hover:text-blue-600 py-1.5 px-2.5 rounded bg-gray-50 hover:bg-blue-50 transition min-h-[36px]">
+                            <i class="fa-solid fa-eye mr-1"></i> Ver no Mapa
+                        </button>
+                        <button class="route-btn text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 py-1.5 px-2.5 rounded transition min-h-[36px]">
+                            <i class="fa-solid fa-route mr-1"></i> Rota
+                        </button>
+                    </div>
+                `;
+
+                itemDiv.querySelector('.focus-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    STATE.map.flyTo([place.lat, place.lng], 16, { duration: 1 });
+                    if (window.innerWidth < 768) toggleSidebar(false);
+                });
+
+                itemDiv.querySelector('.route-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectDestinationForRoute(place.lat, place.lng, place.name);
+                });
+
+                itemDiv.addEventListener('click', () => {
+                    STATE.map.flyTo([place.lat, place.lng], 16, { duration: 1 });
+                    if (window.innerWidth < 768) toggleSidebar(false);
+                });
+
+                container.appendChild(itemDiv);
+            });
+        }
+
+        function selectDestinationForRoute(lat, lng, destinationName) {
+            STATE.selectedDestination = { lat, lng, name: destinationName };
+
+            document.getElementById('route-panel').classList.remove('hidden');
+            document.getElementById('route-destination-name').textContent = destinationName;
+
+            drawAnimatedRoute();
+
+            if (window.innerWidth < 768) toggleSidebar(false);
+        }
+
+        function drawAnimatedRoute() {
+            if (!STATE.selectedDestination) return;
+
+            if (STATE.routePolyline) {
+                STATE.map.removeLayer(STATE.routePolyline);
+            }
+
+            const start = [STATE.userLocation.lat, STATE.userLocation.lng];
+            const end = [STATE.selectedDestination.lat, STATE.selectedDestination.lng];
+
+            const waypoints = generateRouteWaypoints(start, end);
+
+            const distKm = calculateDistance(start[0], start[1], end[0], end[1]);
+            let speedKmH = 40; // Carro
+            if (STATE.transportProfile === 'bike') speedKmH = 15;
+            if (STATE.transportProfile === 'foot') speedKmH = 5;
+
+            const timeMin = Math.max(1, Math.round((distKm / speedKmH) * 60));
+
+            document.getElementById('route-distance').textContent = `${distKm.toFixed(1)} km`;
+            document.getElementById('route-time').textContent = `${timeMin} min`;
+
+            STATE.routePolyline = L.polyline(waypoints, {
+                color: '#2563EB',
+                weight: 5,
+                opacity: 0.8,
+                className: 'animated-route-line'
+            }).addTo(STATE.map);
+
+            STATE.map.fitBounds(STATE.routePolyline.getBounds(), { padding: [50, 50], animate: true, duration: 1 });
+        }
+
+        function generateRouteWaypoints(start, end) {
+            const points = [start];
+            const steps = 5;
+
+            for (let i = 1; i < steps; i++) {
+                const ratio = i / steps;
+                const lat = start[0] + (end[0] - start[0]) * ratio + (Math.sin(ratio * Math.PI) * 0.003);
+                const lng = start[1] + (end[1] - start[1]) * ratio + (Math.cos(ratio * Math.PI) * 0.003);
+                points.push([lat, lng]);
+            }
+
+            points.push(end);
+            return points;
+        }
+
+        function clearRoute() {
+            if (STATE.routePolyline) {
+                STATE.map.removeLayer(STATE.routePolyline);
+                STATE.routePolyline = null;
+            }
+            STATE.selectedDestination = null;
+            document.getElementById('route-panel').classList.add('hidden');
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const category = e.currentTarget.getAttribute('data-category');
+                    STATE.currentCategory = category;
+
+                    document.querySelectorAll('.category-btn').forEach(b => {
+                        b.className = 'category-btn min-h-[44px] flex items-center p-3 rounded-lg border border-gray-200 text-xs font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 active:bg-blue-100 transition';
+                    });
+
+                    if (category === 'all') {
+                        e.currentTarget.className = 'category-btn w-full min-h-[44px] mt-2 py-2.5 px-3 rounded-lg bg-blue-600 border border-blue-600 text-xs font-medium text-white transition text-center shadow-sm';
+                    } else {
+                        e.currentTarget.className = 'category-btn min-h-[44px] flex items-center p-3 rounded-lg border-2 border-blue-600 bg-blue-50 text-xs font-bold text-blue-800 transition';
+                    }
+
+                    renderPlacesOnMap();
+                    renderLocationsList();
+                });
+            });
+
+            const searchInput = document.getElementById('search-input');
+            const clearSearchBtn = document.getElementById('clear-search');
+
+            searchInput.addEventListener('input', () => {
+                if (searchInput.value.trim().length > 0) {
+                    clearSearchBtn.classList.remove('hidden');
+                } else {
+                    clearSearchBtn.classList.add('hidden');
+                }
+                renderLocationsList();
+            });
+
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearSearchBtn.classList.add('hidden');
+                renderLocationsList();
+            });
+
+            document.getElementById('clear-route-btn').addEventListener('click', clearRoute);
+
+            document.querySelectorAll('.transport-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.transport-btn').forEach(b => {
+                        b.className = 'transport-btn flex-1 py-2 bg-white text-gray-700 border border-gray-300 rounded text-xs font-medium text-center hover:bg-gray-50 transition';
+                    });
+
+                    e.currentTarget.className = 'transport-btn flex-1 py-2 bg-blue-600 text-white rounded text-xs font-medium text-center shadow-sm transition';
+                    STATE.transportProfile = e.currentTarget.getAttribute('data-profile');
+
+                    drawAnimatedRoute();
+                });
+            });
+
+            document.getElementById('recenter-btn').addEventListener('click', () => {
+                STATE.map.flyTo([STATE.userLocation.lat, STATE.userLocation.lng], 15, { duration: 1 });
+                if (window.innerWidth < 768) toggleSidebar(false);
+            });
+
+            const toggleBtn = document.getElementById('mobile-toggle-btn');
+            toggleBtn.addEventListener('click', () => {
+                const sidebar = document.getElementById('sidebar');
+                const isOpen = !sidebar.classList.contains('-translate-x-full');
+                toggleSidebar(!isOpen);
+            });
+
+            window.addEventListener('resize', () => {
+                if (STATE.map) STATE.map.invalidateSize();
+            });
+        }
+
+        function toggleSidebar(open) {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            if (open) {
+                sidebar.classList.remove('-translate-x-full');
+                icon.className = 'fa-solid fa-xmark text-xl';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                icon.className = 'fa-solid fa-bars text-xl';
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-14 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 text-white px-4 py-2 rounded-full shadow-2xl text-xs flex items-center space-x-2 transition-all duration-300 opacity-0';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span>${escapeHtml(message)}</span>`;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.remove('opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+            }[m]));
+        }
+    </script>
+</body>
+</html>
