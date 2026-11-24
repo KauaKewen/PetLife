@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastrar Novo Pet | PetLife</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="novo-pet.css">
+<link rel="stylesheet" href="modo-escuro.css">
+<script src="modo-escuro.js"></script>
+</head>
+<body>
+<div class="pagina">
+
+<!-- ========== MENU LATERAL ========== -->
+<aside class="menu-lateral">
+  <a href="index.html" class="menu-logo">
+    <div class="logo-icone"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg></div>
+    <span>PetLife</span>
+  </a>
+
+  <nav class="menu-links">
+    <a class="menu" href="dashboard.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Dashboard</a>
+    <a class="menu ativo" href="novo-pet.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="13" r="7"></circle><circle cx="5.5" cy="6" r="2.5"></circle><circle cx="18.5" cy="6" r="2.5"></circle><path d="M9.5 13h.01M14.5 13h.01M11 16.5h2"></path></svg>Meus Pets</a>
+    <a class="menu" href="carteirinha.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M7 15l3-3 3 2 4-5"></path></svg>Carteirinha</a>
+    <a class="menu" href="mapa.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Pontos de Vacinação</a>
+    <a class="menu" href="adocao.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.4 4.4 0 0112 7.2 4.4 4.4 0 0119.5 10c0 5.4-7.5 10-7.5 10z"></path></svg>Adoção</a>
+    <a class="menu" href="perfil.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path></svg>Perfil</a>
+  </nav>
+
+  <div class="card-vet">
+    <h4>Área do Vet</h4>
+    <p>Deseja acessar como médico veterinário e escanear?</p>
+    <a href="scanner.html">Ir para Scanner →</a>
+  </div>
+</aside>
+
+<!-- ========== CONTEÚDO ========== -->
+<main class="conteudo">
+
+  <header class="topo">
+    <div>
+      <h1>Cadastrar Novo Pet</h1>
+      <p>Insira as informações básicas para gerar a carteira digital dele</p>
+    </div>
+    <div class="usuario">
+      <div class="avatar" id="usuario-avatar">M</div>
+      <div class="usuario-info">
+        <strong id="usuario-nome">Maria Silva</strong>
+        <span>Tutor Premium</span>
+      </div>
+    </div>
+  </header>
+
+  <form class="cartao form-pet" id="form-pet">
+
+    <!-- Foto -->
+    <div class="area-foto">
+      <label for="foto" class="caixa-foto" id="caixa-foto">
+        <span class="foto-icone"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V5M7 10l5-5 5 5"></path><path d="M5 19h14"></path></svg></span>
+        <strong>Enviar foto do pet</strong>
+        <small>PNG ou JPG até 5MB</small>
+        <img id="previa-foto" alt="Prévia da foto do pet">
+      </label>
+      <input type="file" id="foto" accept="image/png, image/jpeg">
+      <p class="erro-foto" id="erro-foto"></p>
+
+      <!-- Patinha decorativa -->
+      <svg class="pata-decorativa" width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg>
+    </div>
+
+    <!-- Campos -->
+    <div class="campos">
+      <label for="nome">Nome do Pet *</label>
+      <input type="text" id="nome" placeholder="Ex: Barthô" required>
+
+      <label for="especie">Espécie *</label>
+      <select id="especie" required>
+        <option value="Cão">Cão</option>
+        <option value="Gato">Gato</option>
+        <option value="Outro">Outro</option>
+      </select>
+
+      <label for="raca">Raça *</label>
+      <select id="raca" required>
+        <option value="">Selecione a raça</option>
+      </select>
+
+      <span class="rotulo-grupo">Sexo *</span>
+      <div class="grupo-radio">
+        <label class="radio"><input type="radio" name="sexo" value="Macho" checked> Macho</label>
+        <label class="radio"><input type="radio" name="sexo" value="Fêmea"> Fêmea</label>
+      </div>
+
+      <label for="nascimento">Data de Nascimento</label>
+      <input type="date" id="nascimento">
+
+      <label for="peso">Peso (kg)</label>
+      <input type="number" id="peso" placeholder="Ex: 12.5" min="0" step="0.1">
+
+      <label for="cor">Cor / Pelagem</label>
+      <input type="text" id="cor" placeholder="Ex: Dourado, Preto e Branco, etc.">
+
+      <label for="observacoes">Observações Clínicas / Alergias</label>
+      <textarea id="observacoes" rows="4" placeholder="Possui alguma alergia a medicamentos ou cuidados especiais?"></textarea>
+
+      <div class="botoes">
+        <button type="submit" class="btn-cadastrar">Cadastrar pet</button>
+        <a href="dashboard.html" class="btn-cancelar">Cancelar</a>
+      </div>
+
+      <p class="mensagem-sucesso" id="mensagem-sucesso">✓ Pet cadastrado! Indo para o Dashboard...</p>
+    </div>
+  </form>
+
+</main>
+</div>
+
+<script>
+  // ---------- Nome do usuário (salvo no cadastro.html) ----------
+  try {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (usuario && usuario.nome) {
+      document.getElementById("usuario-nome").textContent = usuario.nome;
+      document.getElementById("usuario-avatar").textContent = usuario.nome.charAt(0).toUpperCase();
+    }
+  } catch (e) {}
+
+  // ---------- Raças mudam conforme a espécie ----------
+  const RACAS = {
+    "Cão": ["SRD (Vira-lata)", "Golden Retriever", "Labrador", "Bulldog Francês", "Poodle", "Shih Tzu", "Yorkshire", "Pinscher", "Spitz Alemão", "Border Collie", "Outra"],
+    "Gato": ["SRD (Vira-lata)", "Persa", "Siamês", "Maine Coon", "Angorá", "Sphynx", "British Shorthair", "Outra"],
+    "Outro": ["Coelho", "Hamster", "Pássaro", "Tartaruga", "Outro"]
+  };
+
+  const campoEspecie = document.getElementById("especie");
+  const campoRaca = document.getElementById("raca");
+
+  function carregarRacas() {
+    campoRaca.innerHTML = '<option value="">Selecione a raça</option>';
+    RACAS[campoEspecie.value].forEach(raca => {
+      const opcao = document.createElement("option");
+      opcao.value = raca;
+      opcao.textContent = raca;
+      campoRaca.appendChild(opcao);
+    });
+  }
+  campoEspecie.addEventListener("change", carregarRacas);
+  carregarRacas();
+
+  // ---------- Foto: mostra a prévia e diminui o tamanho para salvar ----------
+  let fotoPet = "";
+  const campoFoto = document.getElementById("foto");
+  const previa = document.getElementById("previa-foto");
+  const caixaFoto = document.getElementById("caixa-foto");
+  const erroFoto = document.getElementById("erro-foto");
+
+  campoFoto.addEventListener("change", function () {
+    const arquivo = campoFoto.files[0];
+    erroFoto.textContent = "";
+    if (!arquivo) return;
+
+    if (arquivo.size > 5 * 1024 * 1024) {
+      erroFoto.textContent = "A foto precisa ter até 5MB.";
+      campoFoto.value = "";
+      return;
+    }
+
+    const leitor = new FileReader();
+    leitor.onload = function () {
+      const imagem = new Image();
+      imagem.onload = function () {
+        // Reduz para 300x300 (recorte quadrado) para caber no localStorage
+        const tamanho = 300;
+        const canvas = document.createElement("canvas");
+        canvas.width = tamanho;
+        canvas.height = tamanho;
+        const lado = Math.min(imagem.width, imagem.height);
+        canvas.getContext("2d").drawImage(
+          imagem,
+          (imagem.width - lado) / 2, (imagem.height - lado) / 2, lado, lado,
+          0, 0, tamanho, tamanho
+        );
+        fotoPet = canvas.toDataURL("image/jpeg", 0.8);
+        previa.src = fotoPet;
+        caixaFoto.classList.add("com-foto");
+      };
+      imagem.src = leitor.result;
+    };
+    leitor.readAsDataURL(arquivo);
+  });
+
+  // ---------- Idade a partir da data de nascimento ----------
+  function calcularIdade(data) {
+    if (!data) return "";
+    const nascimento = new Date(data + "T00:00:00");
+    const hoje = new Date();
+    let anos = hoje.getFullYear() - nascimento.getFullYear();
+    let meses = hoje.getMonth() - nascimento.getMonth();
+    if (hoje.getDate() < nascimento.getDate()) meses--;
+    if (meses < 0) { anos--; meses += 12; }
+    if (anos < 0) return "";
+    if (anos === 0) return meses <= 1 ? "1 mês" : meses + " meses";
+    return anos === 1 ? "1 ano" : anos + " anos";
+  }
+
+  // ---------- Cadastrar: salva o pet no navegador e volta para o Dashboard ----------
+  document.getElementById("form-pet").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const pet = {
+      nome: document.getElementById("nome").value.trim(),
+      especie: campoEspecie.value,
+      raca: campoRaca.value,
+      sexo: document.querySelector('input[name="sexo"]:checked').value,
+      nascimento: document.getElementById("nascimento").value,
+      idade: calcularIdade(document.getElementById("nascimento").value),
+      peso: document.getElementById("peso").value,
+      cor: document.getElementById("cor").value.trim(),
+      observacoes: document.getElementById("observacoes").value.trim(),
+      foto: fotoPet
+    };
+
+    let pets = [];
+    try { pets = JSON.parse(localStorage.getItem("pets")) || []; } catch (e) {}
+    pets.push(pet);
+
+    try {
+      localStorage.setItem("pets", JSON.stringify(pets));
+    } catch (e) {
+      alert("Não foi possível salvar: o armazenamento do navegador está cheio.");
+      return;
+    }
+
+    document.getElementById("mensagem-sucesso").classList.add("visivel");
+    setTimeout(() => { window.location.href = "dashboard.html#meus-pets"; }, 1500);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | PetLife</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="modo-escuro.css">
+<script src="modo-escuro.js"></script>
+</head>
+<body>
+<div class="pagina">
+
+<!-- ========== MENU LATERAL ========== -->
+<aside class="menu-lateral">
+  <a href="index.html" class="menu-logo">
+    <div class="logo-icone"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg></div>
+    <span>PetLife</span>
+  </a>
+
+  <nav class="menu-links">
+    <a class="menu ativo" href="dashboard.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Dashboard</a>
+    <a class="menu" href="novo-pet.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="13" r="7"></circle><circle cx="5.5" cy="6" r="2.5"></circle><circle cx="18.5" cy="6" r="2.5"></circle><path d="M9.5 13h.01M14.5 13h.01M11 16.5h2"></path></svg>Meus Pets</a>
+    <a class="menu" href="carteirinha.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M7 15l3-3 3 2 4-5"></path></svg>Carteirinha</a>
+    <a class="menu" href="mapa.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Pontos de Vacinação</a>
+    <a class="menu" href="adocao.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.4 4.4 0 0112 7.2 4.4 4.4 0 0119.5 10c0 5.4-7.5 10-7.5 10z"></path></svg>Adoção</a>
+    <a class="menu" href="perfil.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path></svg>Perfil</a>
+  </nav>
+
+  <div class="card-vet">
+    <h4>Área do Vet</h4>
+    <p>Deseja acessar como médico veterinário e escanear?</p>
+    <a href="scanner.html">Ir para Scanner →</a>
+  </div>
+</aside>
+
+<!-- ========== CONTEÚDO ========== -->
+<main class="conteudo">
+
+  <!-- Saudação -->
+  <header class="topo">
+    <div>
+      <h1>Olá, <span id="nome-saudacao">Maria Silva</span>!</h1>
+      <p>Acompanhe a imunização dos seus companheiros hoje.</p>
+    </div>
+    <div class="usuario">
+      <div class="avatar" id="usuario-avatar">M</div>
+      <div class="usuario-info">
+        <strong id="usuario-nome">Maria Silva</strong>
+        <span>Tutor Premium</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Resumo -->
+  <section class="resumo">
+    <div class="card-resumo">
+      <div class="resumo-icone azul"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg></div>
+      <div>
+        <span class="resumo-rotulo">Total de pets</span>
+        <strong class="resumo-numero" id="total-pets">3</strong>
+        <span class="resumo-detalhe">Cadastrados</span>
+      </div>
+    </div>
+
+    <div class="card-resumo">
+      <div class="resumo-icone verde"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+      <div>
+        <span class="resumo-rotulo">Vacinas em dia</span>
+        <strong class="resumo-numero">2</strong>
+        <span class="resumo-detalhe">Pets imunizados</span>
+      </div>
+    </div>
+
+    <div class="card-resumo">
+      <div class="resumo-icone vermelho"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9 9l6 6M15 9l-6 6"></path></svg></div>
+      <div>
+        <span class="resumo-rotulo">Próxima vacina</span>
+        <strong class="resumo-numero">15/09</strong>
+        <span class="resumo-detalhe">Próxima dose (Thor)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meus Pets -->
+  <section class="meus-pets" id="meus-pets">
+    <div class="secao-topo">
+      <h2>Meus Pets Cadastrados</h2>
+      <a href="novo-pet.html" class="btn-adicionar">+ Adicionar novo pet</a>
+    </div>
+
+    <div class="grade-pets" id="grade-pets">
+      <article class="card-pet">
+        <img src="img/luna.jpg" alt="Foto da Luna">
+        <h3>Luna <span class="tag-especie">Cão</span></h3>
+        <p>Golden Retriever · 3 anos</p>
+        <a href="carteirinha.html" class="btn-carteirinha">Ver carteirinha</a>
+      </article>
+
+      <article class="card-pet">
+        <img src="img/thor.jpg" alt="Foto do Thor">
+        <h3>Thor <span class="tag-especie">Cão</span></h3>
+        <p>Bulldog Francês · 1 ano</p>
+        <a href="carteirinha.html" class="btn-carteirinha">Ver carteirinha</a>
+      </article>
+
+      <article class="card-pet">
+        <img src="img/mel.jpg" alt="Foto da Mel">
+        <h3>Mel <span class="tag-especie">Gato</span></h3>
+        <p>SRD (Vira-lata) · 2 anos</p>
+        <a href="carteirinha.html" class="btn-carteirinha">Ver carteirinha</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Atividade + Atenção -->
+  <section class="area-final">
+    <div class="card-atividade">
+      <h2>Atividade Recente</h2>
+      <ul class="lista-atividades">
+        <li>
+          <span class="ponto verde"></span>
+          <div class="atividade-texto">
+            <strong>Antirrábica registrada para Luna</strong>
+            <span>Hoje · Aplicada por Clínica PetAmigo</span>
+          </div>
+          <span class="status confirmado">Confirmado</span>
+        </li>
+        <li>
+          <span class="ponto verde"></span>
+          <div class="atividade-texto">
+            <strong>V10 - Reforço registrada para Thor</strong>
+            <span>Ontem · Aplicada por Centro Vet Saúde</span>
+          </div>
+          <span class="status confirmado">Confirmado</span>
+        </li>
+        <li>
+          <span class="ponto azul"></span>
+          <div class="atividade-texto">
+            <strong>Tríplice Felina registrada para Mel</strong>
+            <span>12/08/2026 por Clínica MiaVet</span>
+          </div>
+          <span class="status agendado">Agendado</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-atencao">
+      <h2>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"></path><path d="M12 8v4M12 15.5h.01"></path></svg>
+        Atenção
+      </h2>
+      <p>A vacina contra <strong>Gripe Canina</strong> do <strong>Thor</strong> vence em 15 dias. Agende uma visita ao veterinário parceiro para manter o status verde.</p>
+      <a href="mapa.html" class="btn-clinicas">Encontrar Clínicas Próximas</a>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+  // Mostra o nome de quem se cadastrou (salvo no cadastro.html)
+  try {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (usuario && usuario.nome) {
+      document.getElementById("nome-saudacao").textContent = usuario.nome;
+      document.getElementById("usuario-nome").textContent = usuario.nome;
+      document.getElementById("usuario-avatar").textContent = usuario.nome.charAt(0).toUpperCase();
+    }
+  } catch (e) { /* sem usuário salvo: fica "Maria Silva" */ }
+
+  // Mostra os pets cadastrados na página "Cadastrar Novo Pet" (novo-pet.html)
+  let petsSalvos = [];
+  try { petsSalvos = JSON.parse(localStorage.getItem("pets")) || []; } catch (e) {}
+
+  const grade = document.getElementById("grade-pets");
+  petsSalvos.forEach(pet => {
+    const card = document.createElement("article");
+    card.className = "card-pet";
+    card.innerHTML = `
+      <img alt="">
+      <h3><span class="nome-pet"></span> <span class="tag-especie"></span></h3>
+      <p></p>
+      <a href="carteirinha.html" class="btn-carteirinha">Ver carteirinha</a>
+    `;
+    // textContent evita que algo digitado vire código HTML
+    const img = card.querySelector("img");
+    // sem foto: mostra uma patinha verde no lugar
+    img.src = pet.foto || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23ecfdf5'/%3E%3Cg fill='%2334d399' transform='translate(6 6) scale(.5)'%3E%3Cellipse cx='6' cy='10' rx='2' ry='2.6'/%3E%3Cellipse cx='10' cy='6' rx='2' ry='2.6'/%3E%3Cellipse cx='14.5' cy='6' rx='2' ry='2.6'/%3E%3Cellipse cx='18.5' cy='10' rx='2' ry='2.6'/%3E%3Cpath d='M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z'/%3E%3C/g%3E%3C/svg%3E";
+    img.alt = "Foto de " + pet.nome;
+    card.querySelector(".nome-pet").textContent = pet.nome;
+    card.querySelector(".tag-especie").textContent = pet.especie;
+    card.querySelector("p").textContent = [pet.raca, pet.idade].filter(Boolean).join(" · ");
+    grade.appendChild(card);
+  });
+
+  document.getElementById("total-pets").textContent = 3 + petsSalvos.length;
+</script>
+</body>
+</html>
