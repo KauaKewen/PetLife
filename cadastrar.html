@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar</title>
+</head>
+<body>
+    <div class="container">
+        <div class="cadastro">
+            <h1>PetLife</h1>
+            <P>Cadastre sua conta</P>
+            <form>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+                <label for="sobrenome">Sobrenome</label>
+                <input type="text" id="sobrenome" placeholder="Digite seu sobrenome" required>
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Crie uma senha" required>
+
+                <button type="submit">Pronto! Cadastre</button>
+
+            </form>
+            <div id="mensagem" style="display: none;">
+                <h2>Parabéns!</h2>
+                <p>Cadastro feito com sucesso.</p>
+
+                <button  onclick="window.location.href='entrar.html'">Acesse sua conta</button>
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+        const formulario=document.querySelector("form");
+        formulario.addEventListener("submit", function(event){event.preventDefault();
+
+        formulario.style.display="none";
+
+        document.getElementById("mensagem").style.display="block";
+        });
+    </script>
+</body>
+</html>
