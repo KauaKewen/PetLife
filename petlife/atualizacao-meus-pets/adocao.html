@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Life | Portal de Adoção Responsável</title>
+    <!-- AJUSTE: o CSS que estava aqui dentro (<style>) foi para o adocao.css -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="adocao.css">
+    <link rel="stylesheet" href="modo-escuro.css">
+    <script src="modo-escuro.js"></script>
+</head>
+<body>
+<!-- AJUSTE: menu lateral do PetLife + "pagina"/"conteudo" em volta do conteúdo -->
+<div class="pagina">
+
+<!-- ========== MENU LATERAL ========== -->
+<aside class="menu-lateral">
+  <a href="index.html" class="menu-logo">
+    <div class="logo-icone"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg></div>
+    <span>PetLife</span>
+  </a>
+
+  <nav class="menu-links">
+    <a class="menu" href="dashboard.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Dashboard</a>
+    <a class="menu" href="novo-pet.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="13" r="7"></circle><circle cx="5.5" cy="6" r="2.5"></circle><circle cx="18.5" cy="6" r="2.5"></circle><path d="M9.5 13h.01M14.5 13h.01M11 16.5h2"></path></svg>Meus Pets</a>
+    <a class="menu" href="carteirinha.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M7 15l3-3 3 2 4-5"></path></svg>Carteirinha</a>
+    <a class="menu" href="mapa.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Pontos de Vacinação</a>
+    <a class="menu ativo" href="adocao.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.4 4.4 0 0112 7.2 4.4 4.4 0 0119.5 10c0 5.4-7.5 10-7.5 10z"></path></svg>Adoção</a>
+    <a class="menu" href="perfil.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path></svg>Perfil</a>
+  </nav>
+
+  <div class="card-vet">
+    <h4>Área do Vet</h4>
+    <p>Deseja acessar como médico veterinário e escanear?</p>
+    <a href="scanner.html">Ir para Scanner →</a>
+  </div>
+</aside>
+
+<div class="conteudo">
+
+
+    <!-- AJUSTE: o logo saiu daqui porque agora fica no menu lateral -->
+    <header class="topo-adocao">
+        <nav>
+            <button class="btn btn-pequeno" onclick="alert('Aqui abriria a página de cadastro de animais da Pet Life!')">Divulgar um Pet</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Pet Life — Adoção Responsável</h1>
+        <p>Conectando animais castrados e vacinados a lares cheios de amor e cuidado.</p>
+        
+        <div class="filter-bar">
+            <select id="filterEspecie" onchange="filtrarPets()">
+                <option value="todos">Todas as Espécies</option>
+                <option value="Cachorro">Cachorros</option>
+                <option value="Gato">Gatos</option>
+            </select>
+            <select id="filterPorte" onchange="filtrarPets()">
+                <option value="todos">Todos os Portes</option>
+                <option value="Pequeno">Porte Pequeno</option>
+                <option value="Médio">Porte Médio</option>
+                <option value="Grande">Porte Grande</option>
+            </select>
+            <input type="text" id="filterCidade" placeholder="Buscar por cidade..." onkeyup="filtrarPets()">
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="pets-grid" id="petsGrid">
+            <!-- Os cards serão gerados via JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <strong>Pet Life</strong> — Portal de Adoção Responsável
+    </footer>
+
+</div>
+</div>
+
+    <!-- Modal de Detalhes e Formulário -->
+    <div class="modal-overlay" id="adoptionModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="fecharModal()">&times;</button>
+            
+            <div class="modal-pet-summary" id="modalPetInfo">
+                <!-- Preenchido via JS -->
+            </div>
+
+            <form id="adoptionForm" onsubmit="enviarFormulario(event)">
+                <h3 class="form-section-title">1. Seus Dados</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nome Completo *</label>
+                        <input type="text" required placeholder="Ex: Maria Silva">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp / Telefone *</label>
+                        <input type="tel" required placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail *</label>
+                        <input type="email" required placeholder="maria@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Cidade e Bairro *</label>
+                        <input type="text" required placeholder="Ex: São Paulo - Pinheiros">
+                    </div>
+                </div>
+
+                <h3 class="form-section-title">2. Sobre a Moradia</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tipo de Residência *</label>
+                        <select required>
+                            <option value="">Selecione...</option>
+                            <option value="casa">Casa</option>
+                            <option value="apartamento">Apartamento</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Imóvel Próprio ou Alugado? *</label>
+                        <select required>
+                            <option value="">Selecione...</option>
+                            <option value="proprio">Próprio</option>
+                            <option value="alugado_sim">Alugado (Proprietário permite pets)</option>
+                            <option value="alugado_nao">Alugado (Não tenho certeza)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full" id="campoSeguranca">
+                        <!-- Dinâmico: muda se for gato ou cachorro -->
+                    </div>
+                </div>
+
+                <h3 class="form-section-title">3. Rotina e Experiência</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Já possui outros animais em casa? *</label>
+                        <select required>
+                            <option value="nao">Não, será o primeiro</option>
+                            <option value="sim_caes">Sim, cachorro(s)</option>
+                            <option value="sim_gatos">Sim, gato(s)</option>
+                            <option value="sim_ambos">Sim, cães e gatos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Quanto tempo o pet ficará sozinho/dia? *</label>
+                        <select required>
+                            <option value="menos_4h">Menos de 4 horas</option>
+                            <option value="4_a_8h">De 4 a 8 horas</option>
+                            <option value="mais_8h">Mais de 8 horas</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label>Conte brevemente por que quer adotar este pet:</label>
+                        <textarea rows="3" placeholder="Fale um pouco sobre sua família e rotina..."></textarea>
+                    </div>
+                </div>
+
+                <h3 class="form-section-title">4. Compromisso</h3>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termo1" required>
+                    <label for="termo1">Todos os moradores da casa estão de acordo com a adoção.</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termo2" required>
+                    <label for="termo2">Estou ciente dos custos com alimentação, vacinas e veterinário.</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termo3" required>
+                    <label for="termo3">Concordo em enviar fotos/vídeos periódicos para acompanhamento da equipe Pet Life.</label>
+                </div>
+
+                <button type="submit" class="btn btn-enviar">Enviar Pedido de Adoção</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Banco de dados simulado
+        const pets = [
+            {
+                id: 1,
+                nome: "Paçoca",
+                especie: "Cachorro",
+                sexo: "Macho",
+                idade: "2 anos",
+                porte: "Médio",
+                cidade: "São Paulo, SP",
+                castrado: true,
+                vacinado: true,
+                tags: ["Dócil", "Brincalhão", "Sociável com cães"],
+                historia: "Resgatado das ruas ainda filhote, o Paçoca adora passear e receber carinho na barriga.",
+                foto: "img/adocao/pacoca.jpg",
+                fotoOnline: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80" // usada se a foto da pasta img/adocao não existir
+            },
+            {
+                id: 2,
+                nome: "Luna",
+                especie: "Gato",
+                sexo: "Fêmea",
+                idade: "8 meses",
+                porte: "Pequeno",
+                cidade: "Curitiba, PR",
+                castrado: true,
+                vacinado: true,
+                tags: ["Calma", "Carinhosa", "FIV/FeLV Negativo"],
+                historia: "Luna é uma gatinha muito tranquila que ama dormir no sofá e ronronar perto de pessoas.",
+                foto: "img/adocao/luna.jpg",
+                fotoOnline: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80" // usada se a foto da pasta img/adocao não existir
+            },
+            {
+                id: 3,
+                nome: "Thor",
+                especie: "Cachorro",
+                sexo: "Macho",
+                idade: "4 anos",
+                porte: "Grande",
+                cidade: "Belo Horizonte, MG",
+                castrado: true,
+                vacinado: true,
+                tags: ["Protetor", "Companheiro", "Ama crianças"],
+                historia: "Apesar do tamanho, Thor é um gigante gentil que só quer ficar perto da família.",
+                foto: "img/adocao/thor.jpg",
+                fotoOnline: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=600&q=80" // usada se a foto da pasta img/adocao não existir
+            },
+            {
+                id: 4,
+                nome: "Mingau",
+                especie: "Gato",
+                sexo: "Macho",
+                idade: "1 ano",
+                porte: "Pequeno",
+                cidade: "São Paulo, SP",
+                castrado: true,
+                vacinado: true,
+                tags: ["Curioso", "Ativo", "Sociável com gatos"],
+                historia: "Mingau adora brincar com bolinhas de papel e se dá super bem com outros gatos.",
+                foto: "img/adocao/mingau.jpg",
+                fotoOnline: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80" // usada se a foto da pasta img/adocao não existir
+            }
+        ];
+
+        function renderizarPets(lista) {
+            const grid = document.getElementById('petsGrid');
+            grid.innerHTML = '';
+
+            if (lista.length === 0) {
+                grid.innerHTML = '<p class="sem-resultados">Nenhum pet encontrado com esses filtros.</p>';
+                return;
+            }
+
+            lista.forEach(pet => {
+                const card = document.createElement('div');
+                card.className = 'pet-card';
+                card.innerHTML = `
+                    <img src="${pet.foto}" alt="${pet.nome}" class="pet-img" onerror="this.onerror=null; this.src='${pet.fotoOnline}'">
+                    <div class="pet-info">
+                        <div class="pet-header">
+                            <span class="pet-name">${pet.nome}</span>
+                            <span class="badge">${pet.especie} • ${pet.sexo}</span>
+                        </div>
+                        <div class="pet-meta">
+                            📍 ${pet.cidade} | Porte ${pet.porte} | ${pet.idade}
+                        </div>
+                        <div class="tags">
+                            ${pet.castrado ? '<span class="tag">✅ Castrado</span>' : ''}
+                            ${pet.vacinado ? '<span class="tag">💉 Vacinado</span>' : ''}
+                            ${pet.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                        </div>
+                        <button class="btn" onclick="abrirModal(${pet.id})">Conhecer e Adotar</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filtrarPets() {
+            const especie = document.getElementById('filterEspecie').value;
+            const porte = document.getElementById('filterPorte').value;
+            const cidade = document.getElementById('filterCidade').value.toLowerCase();
+
+            const filtrados = pets.filter(pet => {
+                const matchEspecie = especie === 'todos' || pet.especie === especie;
+                const matchPorte = porte === 'todos' || pet.porte === porte;
+                const matchCidade = pet.cidade.toLowerCase().includes(cidade);
+                return matchEspecie && matchPorte && matchCidade;
+            });
+
+            renderizarPets(filtrados);
+        }
+
+        function abrirModal(id) {
+            const pet = pets.find(p => p.id === id);
+            if (!pet) return;
+
+            document.getElementById('modalPetInfo').innerHTML = `
+                <img src="${pet.foto}" alt="${pet.nome}" onerror="this.onerror=null; this.src='${pet.fotoOnline}'">
+                <div>
+                    <h2 class="modal-nome">${pet.nome} <span class="badge">${pet.especie}</span></h2>
+                    <p class="modal-meta">
+                        📍 ${pet.cidade} • ${pet.idade} • Porte ${pet.porte}
+                    </p>
+                    <p class="modal-historia">${pet.historia}</p>
+                </div>
+            `;
+
+            const campoSeguranca = document.getElementById('campoSeguranca');
+            if (pet.especie === 'Gato') {
+                campoSeguranca.innerHTML = `
+                    <label>Segurança para Gatos: O imóvel possui telas de proteção nas janelas/sacadas? *</label>
+                    <select required>
+                        <option value="">Selecione...</option>
+                        <option value="sim">Sim, todas as janelas/sacadas são teladas</option>
+                        <option value="vou_telar">Ainda não, mas vou telar antes da adoção</option>
+                        <option value="nao">Não possui telas</option>
+                    </select>
+                `;
+            } else {
+                campoSeguranca.innerHTML = `
+                    <label>Segurança para Cães: O quintal/espaço é totalmente murado e sem rotas de fuga? *</label>
+                    <select required>
+                        <option value="">Selecione...</option>
+                        <option value="sim_dentro">Sim, e o cão terá acesso ao interior da casa</option>
+                        <option value="sim_fora">Sim, mas ficará apenas no quintal</option>
+                        <option value="apartamento">Moro em apartamento (passeios na guia)</option>
+                    </select>
+                `;
+            }
+
+            document.getElementById('adoptionModal').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('adoptionModal').style.display = 'none';
+        }
+
+        function enviarFormulario(e) {
+            e.preventDefault();
+            alert('🎉 Interesse enviado com sucesso para a Pet Life! Entraremos em contato pelo WhatsApp em breve.');
+            fecharModal();
+            document.getElementById('adoptionForm').reset();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('adoptionModal');
+            if (event.target === modal) {
+                fecharModal();
+            }
+        }
+
+        renderizarPets(pets);
+    </script>
+</body>
+</html>
