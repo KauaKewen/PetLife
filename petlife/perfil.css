@@ -1,0 +1,534 @@
+/* ==========================================
+   MEU PERFIL - PetLife
+   Usa as variáveis do style.css (carregar o style.css ANTES deste arquivo)
+   ========================================== */
+
+body {
+  background-color: #f7f9f7;
+}
+
+.pagina {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ==========================================
+   1. MENU LATERAL (igual ao da carteirinha)
+   ========================================== */
+.menu-lateral {
+  width: 270px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  background-color: #ffffff;
+  border-right: 1px solid var(--border-color);
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 44px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.logo-icone {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.menu:hover {
+  background-color: #f1f5f9;
+}
+
+.menu.ativo {
+  background-color: #ecfdf5;
+  color: var(--primary-hover);
+  font-weight: 600;
+}
+
+.menu.ativo svg {
+  color: var(--primary-hover);
+}
+
+.card-vet {
+  margin-top: auto;
+  padding: 20px;
+  border-radius: 18px;
+  background-color: #e8f4fd;
+}
+
+.card-vet h4 {
+  font-size: 15px;
+  color: #0284c7;
+  margin-bottom: 8px;
+}
+
+.card-vet p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.card-vet a {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0284c7;
+  text-decoration: none;
+}
+
+.card-vet a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   2. CONTEÚDO
+   ========================================== */
+.conteudo {
+  flex: 1;
+  min-width: 0;
+  max-width: 1200px;
+  padding: 40px;
+}
+
+/* Saudação + usuário */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.topo h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.topo p {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.usuario-info strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.usuario-info span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Cartão branco padrão */
+.cartao {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 22px;
+  padding: 30px;
+}
+
+.cartao h2 {
+  font-size: 19px;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+/* ==========================================
+   3. GRADE EM 2 COLUNAS
+   ========================================== */
+.grade-perfil {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==========================================
+   4. DADOS PESSOAIS (formulário)
+   ========================================== */
+.dados-pessoais {
+  display: flex;
+  flex-direction: column;
+}
+
+.dados-pessoais label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.dados-pessoais input {
+  width: 100%;
+  padding: 11px 16px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  color: var(--text-dark);
+  background-color: #f6faf8;
+  border: 1.5px solid #dbe7e0;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.dados-pessoais input:focus {
+  background-color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
+}
+
+.form-rodape {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.btn-salvar {
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-salvar:hover {
+  background-color: var(--primary-hover);
+}
+
+.mensagem-salvo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-hover);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mensagem-salvo.visivel {
+  opacity: 1;
+}
+
+/* ==========================================
+   5. ANÚNCIOS DE ADOÇÃO
+   ========================================== */
+.anuncio {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background-color: #f6faf8;
+  border-radius: 14px;
+}
+
+.anuncio img {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #ecfdf5;
+}
+
+.anuncio-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.anuncio-info strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.anuncio-info span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.status-ativo {
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #15803d;
+  background-color: #dcfce7;
+  border-radius: 6px;
+}
+
+.link-editar {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0284c7;
+  text-decoration: none;
+}
+
+.link-editar:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   6. MEUS PETS (lista)
+   ========================================== */
+.lista-pets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lista-pets li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lista-pets img {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #ecfdf5;
+}
+
+.pet-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pet-info strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.pet-info span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.lista-pets a {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lista-pets a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   7. CONFIGURAÇÕES (interruptores)
+   ========================================== */
+.opcao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 9px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+/* Transforma o checkbox num interruptor (liga/desliga) */
+.interruptor {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 46px;
+  height: 26px;
+  flex-shrink: 0;
+  background-color: #e2e8f0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.interruptor::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2);
+  transition: transform 0.25s;
+}
+
+.interruptor:checked {
+  background-color: var(--primary-color);
+}
+
+.interruptor:checked::before {
+  transform: translateX(20px);
+}
+
+.interruptor:focus-visible {
+  outline: 3px solid rgba(52, 211, 153, 0.4);
+  outline-offset: 2px;
+}
+
+/* Excluir conta */
+.excluir-conta {
+  align-self: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #f87171;
+  text-decoration: underline;
+}
+
+.excluir-conta:hover {
+  color: #dc2626;
+}
+
+/* ==========================================
+   8. RESPONSIVO
+   ========================================== */
+@media (max-width: 1100px) {
+  .grade-perfil {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Tablet e celular: menu vira uma barra no topo */
+@media (max-width: 900px) {
+  .pagina {
+    flex-direction: column;
+  }
+
+  .menu-lateral {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .menu-logo {
+    margin-bottom: 12px;
+  }
+
+  .menu-links {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+
+  .menu {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .card-vet {
+    display: none;
+  }
+
+  .conteudo {
+    padding: 24px 16px 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .usuario {
+    display: none;
+  }
+
+  .topo h1 {
+    font-size: 24px;
+  }
+
+  .cartao {
+    padding: 22px;
+  }
+
+  .btn-salvar {
+    width: 100%;
+  }
+
+  .mensagem-salvo:not(.visivel) {
+    display: none; /* não deixa espaço vazio embaixo do botão */
+  }
+
+  .anuncio {
+    flex-wrap: wrap;
+  }
+}

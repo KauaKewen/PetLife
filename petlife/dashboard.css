@@ -1,0 +1,570 @@
+/* ==========================================
+   DASHBOARD - PetLife
+   Usa as variáveis do style.css (carregar o style.css ANTES deste arquivo)
+   ========================================== */
+
+body {
+  background-color: #f7f9f7;
+}
+
+.pagina {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ==========================================
+   1. MENU LATERAL (igual ao da carteirinha)
+   ========================================== */
+.menu-lateral {
+  width: 270px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  background-color: #ffffff;
+  border-right: 1px solid var(--border-color);
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 44px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.logo-icone {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.menu:hover {
+  background-color: #f1f5f9;
+}
+
+.menu.ativo {
+  background-color: #ecfdf5;
+  color: var(--primary-hover);
+  font-weight: 600;
+}
+
+.menu.ativo svg {
+  color: var(--primary-hover);
+}
+
+.card-vet {
+  margin-top: auto;
+  padding: 20px;
+  border-radius: 18px;
+  background-color: #e8f4fd;
+}
+
+.card-vet h4 {
+  font-size: 15px;
+  color: #0284c7;
+  margin-bottom: 8px;
+}
+
+.card-vet p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.card-vet a {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0284c7;
+  text-decoration: none;
+}
+
+.card-vet a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   2. CONTEÚDO
+   ========================================== */
+.conteudo {
+  flex: 1;
+  min-width: 0;
+  max-width: 1200px;
+  padding: 40px;
+}
+
+/* Saudação + usuário */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.topo h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.topo p {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.usuario-info strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.usuario-info span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Cartão branco padrão */
+.card-resumo,
+.card-pet,
+.card-atividade {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 22px;
+}
+
+/* ==========================================
+   3. RESUMO (3 números)
+   ========================================== */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.card-resumo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+}
+
+.resumo-icone {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+.resumo-icone.azul {
+  color: #0284c7;
+  background-color: #e0f2fe;
+}
+
+.resumo-icone.verde {
+  color: var(--primary-hover);
+  background-color: #ecfdf5;
+}
+
+.resumo-icone.vermelho {
+  color: #f87171;
+  background-color: #fef2f2;
+}
+
+.resumo-rotulo {
+  display: block;
+  font-size: 13px;
+  color: var(--text-dark);
+}
+
+.resumo-numero {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.resumo-detalhe {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ==========================================
+   4. MEUS PETS
+   ========================================== */
+.meus-pets {
+  margin-bottom: 36px;
+}
+
+.secao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.secao-topo h2 {
+  font-size: 22px;
+  color: var(--text-dark);
+}
+
+.btn-adicionar {
+  padding: 11px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  transition: background-color 0.2s;
+}
+
+.btn-adicionar:hover {
+  background-color: var(--primary-hover);
+}
+
+.grade-pets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.card-pet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 22px 22px;
+  text-align: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card-pet:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.07);
+}
+
+.card-pet img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #ecfdf5;
+  margin-bottom: 18px;
+}
+
+.card-pet h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  color: var(--text-dark);
+}
+
+.tag-especie {
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #15803d;
+  background-color: #dcfce7;
+  border-radius: 6px;
+}
+
+.card-pet p {
+  width: 100%;
+  padding-bottom: 18px;
+  margin: 4px 0 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.btn-carteirinha {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-decoration: none;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 12px;
+  transition: background-color 0.2s;
+}
+
+.btn-carteirinha:hover {
+  background-color: #ecfdf5;
+}
+
+/* ==========================================
+   5. ATIVIDADE RECENTE + ATENÇÃO
+   ========================================== */
+.area-final {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 24px;
+}
+
+.card-atividade {
+  padding: 28px;
+}
+
+.card-atividade h2,
+.card-atencao h2 {
+  font-size: 19px;
+  color: var(--text-dark);
+  margin-bottom: 18px;
+}
+
+.lista-atividades {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lista-atividades li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ponto {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.ponto.verde {
+  background-color: var(--primary-color);
+}
+
+.ponto.azul {
+  background-color: #60a5fa;
+}
+
+.atividade-texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.atividade-texto strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.atividade-texto span {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.status {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.status.confirmado {
+  color: #15803d;
+  background-color: #dcfce7;
+}
+
+.status.agendado {
+  color: #0284c7;
+  background-color: #e0f2fe;
+}
+
+/* Cartão "Atenção" (rosado) */
+.card-atencao {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px;
+  background-color: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  border-radius: 22px;
+}
+
+.card-atencao h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-atencao h2 svg {
+  color: #f87171;
+}
+
+.card-atencao p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
+
+.card-atencao p strong {
+  color: var(--text-dark);
+}
+
+.btn-clinicas {
+  margin-top: auto;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  transition: background-color 0.2s;
+}
+
+.btn-clinicas:hover {
+  background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   6. RESPONSIVO
+   ========================================== */
+@media (max-width: 1100px) {
+  .area-final {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Tablet e celular: menu vira uma barra no topo */
+@media (max-width: 900px) {
+  .pagina {
+    flex-direction: column;
+  }
+
+  .menu-lateral {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .menu-logo {
+    margin-bottom: 12px;
+  }
+
+  .menu-links {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+
+  .menu {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .card-vet {
+    display: none;
+  }
+
+  .conteudo {
+    padding: 24px 16px 40px;
+  }
+
+  .resumo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .usuario {
+    display: none;
+  }
+
+  .topo h1 {
+    font-size: 24px;
+  }
+
+  .btn-adicionar {
+    width: 100%;
+    text-align: center;
+  }
+
+  .lista-atividades li {
+    flex-wrap: wrap;
+  }
+
+  .status {
+    margin-left: 27px;
+  }
+
+  .btn-clinicas {
+    width: 100%;
+    text-align: center;
+  }
+}

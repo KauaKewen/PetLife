@@ -1,0 +1,534 @@
+/* ==========================================
+   CADASTRAR NOVO PET - PetLife
+   Usa as variáveis do style.css (carregar o style.css ANTES deste arquivo)
+   ========================================== */
+
+body {
+  background-color: #f7f9f7;
+}
+
+.pagina {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ==========================================
+   1. MENU LATERAL (igual ao da carteirinha)
+   ========================================== */
+.menu-lateral {
+  width: 270px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  background-color: #ffffff;
+  border-right: 1px solid var(--border-color);
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 44px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.logo-icone {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.menu:hover {
+  background-color: #f1f5f9;
+}
+
+.menu.ativo {
+  background-color: #ecfdf5;
+  color: var(--primary-hover);
+  font-weight: 600;
+}
+
+.menu.ativo svg {
+  color: var(--primary-hover);
+}
+
+.card-vet {
+  margin-top: auto;
+  padding: 20px;
+  border-radius: 18px;
+  background-color: #e8f4fd;
+}
+
+.card-vet h4 {
+  font-size: 15px;
+  color: #0284c7;
+  margin-bottom: 8px;
+}
+
+.card-vet p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.card-vet a {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0284c7;
+  text-decoration: none;
+}
+
+.card-vet a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   2. CONTEÚDO
+   ========================================== */
+.conteudo {
+  flex: 1;
+  min-width: 0;
+  max-width: 1200px;
+  padding: 40px;
+}
+
+/* Saudação + usuário */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.topo h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.topo p {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.usuario-info strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.usuario-info span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ==========================================
+   3. FORMULÁRIO (foto + campos)
+   ========================================== */
+.cartao {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 24px;
+}
+
+.form-pet {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 36px;
+  padding: 40px;
+}
+
+/* ---------- Área da foto ---------- */
+.area-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.area-foto input[type="file"] {
+  display: none; /* o clique acontece na caixa tracejada */
+}
+
+.caixa-foto {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 300 / 220;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  overflow: hidden;
+  text-align: center;
+  border: 2px dashed var(--primary-color);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.caixa-foto:hover {
+  background-color: #f0fdf6;
+}
+
+.foto-icone {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: var(--primary-hover);
+  background-color: #ecfdf5;
+  border-radius: 50%;
+}
+
+.caixa-foto strong {
+  font-size: 14px;
+  color: var(--primary-hover);
+}
+
+.caixa-foto small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Prévia da foto escolhida (cobre a caixa) */
+#previa-foto {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caixa-foto.com-foto {
+  border-style: solid;
+}
+
+.caixa-foto.com-foto #previa-foto {
+  display: block;
+}
+
+.erro-foto {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ef4444;
+}
+
+.pata-decorativa {
+  margin-top: 30px;
+  color: #d5e3da;
+  transform: rotate(-12deg);
+}
+
+/* ---------- Campos ---------- */
+.campos {
+  display: flex;
+  flex-direction: column;
+}
+
+.campos label,
+.rotulo-grupo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.campos input[type="text"],
+.campos input[type="number"],
+.campos input[type="date"],
+.campos select,
+.campos textarea {
+  width: 100%;
+  padding: 11px 16px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  color: var(--text-dark);
+  background-color: #f6faf8;
+  border: 1.5px solid #dbe7e0;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.campos textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.campos input::placeholder,
+.campos textarea::placeholder {
+  color: #94a3b8;
+}
+
+.campos input:focus,
+.campos select:focus,
+.campos textarea:focus {
+  background-color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
+}
+
+/* Setinha personalizada nos selects */
+.campos select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 44px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+/* Remove as setinhas do campo de número */
+.campos input[type="number"]::-webkit-inner-spin-button,
+.campos input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.campos input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ---------- Macho / Fêmea ---------- */
+.grupo-radio {
+  display: flex;
+  gap: 28px;
+  margin: 6px 0 20px;
+}
+
+.campos .radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.radio input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.radio input:checked {
+  border: 1.5px solid var(--primary-color);
+  box-shadow: inset 0 0 0 4px var(--card-bg), inset 0 0 0 9px var(--primary-color);
+}
+
+.radio input:focus-visible {
+  outline: 3px solid rgba(52, 211, 153, 0.4);
+  outline-offset: 2px;
+}
+
+/* ---------- Botões ---------- */
+.botoes {
+  display: flex;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.btn-cadastrar,
+.btn-cancelar {
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-cadastrar {
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.btn-cadastrar:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-cancelar {
+  color: var(--text-dark);
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+}
+
+.btn-cancelar:hover {
+  background-color: #f1f5f9;
+}
+
+.mensagem-sucesso {
+  max-height: 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-hover);
+  opacity: 0;
+  transition: opacity 0.3s, max-height 0.3s, margin 0.3s;
+}
+
+.mensagem-sucesso.visivel {
+  max-height: 40px;
+  margin-top: 14px;
+  opacity: 1;
+}
+
+/* ==========================================
+   4. RESPONSIVO
+   ========================================== */
+@media (max-width: 1000px) {
+  .form-pet {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .area-foto {
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .pata-decorativa {
+    display: none;
+  }
+}
+
+/* Tablet e celular: menu vira uma barra no topo */
+@media (max-width: 900px) {
+  .pagina {
+    flex-direction: column;
+  }
+
+  .menu-lateral {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .menu-logo {
+    margin-bottom: 12px;
+  }
+
+  .menu-links {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+
+  .menu {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .card-vet {
+    display: none;
+  }
+
+  .conteudo {
+    padding: 24px 16px 40px;
+  }
+
+  .resumo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .usuario {
+    display: none;
+  }
+
+  .topo h1 {
+    font-size: 24px;
+  }
+
+  .form-pet {
+    padding: 22px;
+  }
+
+  .botoes {
+    flex-direction: column;
+  }
+
+  .btn-cadastrar,
+  .btn-cancelar {
+    width: 100%;
+    text-align: center;
+  }
+}

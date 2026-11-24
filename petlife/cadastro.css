@@ -1,0 +1,288 @@
+/* ==========================================
+   PÁGINA DE CADASTRO - PetLife
+   Usa as variáveis do style.css (carregar o style.css ANTES deste arquivo)
+   ========================================== */
+
+/* ---------- Fundo e centralização da página ---------- */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #f7f9f7;
+}
+
+/* ---------- Cartão principal (2 colunas) ---------- */
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  background-color: var(--card-bg);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================
+   COLUNA ESQUERDA - FORMULÁRIO
+   ========================================== */
+.cadastro {
+  flex: 1;
+  padding: 50px 56px;
+}
+
+.cadastro h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.cadastro > p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 6px 0 22px;
+}
+
+.cadastro form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastro label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.cadastro input {
+  width: 100%;
+  padding: 13px 16px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  color: var(--text-dark);
+  background-color: #f6faf8;
+  border: 1.5px solid #dbe7e0;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.cadastro input::placeholder {
+  color: #94a3b8;
+}
+
+.cadastro input:focus {
+  background-color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
+}
+
+/* Aviso de senhas diferentes */
+.erro {
+  margin: -12px 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+/* Caixinha de aceite dos termos */
+.cadastro .termos {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 2px 0 14px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.cadastro .termos input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 1px 0 0;
+  flex-shrink: 0;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.cadastro .termos a {
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+.cadastro .termos a:hover {
+  text-decoration: underline;
+}
+
+/* Botões do formulário e da mensagem de sucesso */
+.cadastro button {
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cadastro button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* "Já tem conta? Acesse aqui" */
+.link-entrar {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.link-entrar a {
+  margin-left: 4px;
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+.link-entrar a:hover {
+  text-decoration: underline;
+}
+
+/* Mensagem de sucesso (aparece depois do envio) */
+#mensagem {
+  text-align: center;
+  padding: 40px 0 10px;
+}
+
+#mensagem h2 {
+  font-size: 28px;
+  color: var(--primary-hover);
+  margin-bottom: 6px;
+}
+
+#mensagem p {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+/* ==========================================
+   COLUNA DIREITA - PAINEL AZUL
+   ========================================== */
+.painel-lateral {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 50px 48px;
+  background-color: #eaf6fd;
+}
+
+.painel-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.painel-logo img {
+  width: 34px;
+  height: auto;
+}
+
+.painel-lateral h2 {
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin: 22px 0 40px;
+}
+
+.foto-pet {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.painel-texto {
+  margin-top: auto;
+  padding-top: 40px;
+  font-size: 14px;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+}
+
+/* Círculos decorativos no canto inferior esquerdo */
+.painel-lateral::before,
+.painel-lateral::after {
+  content: "";
+  position: absolute;
+  border: 1.5px solid rgba(148, 163, 184, 0.25);
+  border-radius: 50%;
+}
+
+.painel-lateral::before {
+  width: 170px;
+  height: 170px;
+  left: -60px;
+  bottom: -50px;
+}
+
+.painel-lateral::after {
+  width: 40px;
+  height: 40px;
+  left: 90px;
+  bottom: 120px;
+}
+
+/* ==========================================
+   RESPONSIVO (celular / telas pequenas)
+   ========================================== */
+/* Ícone verde do logo (patinha) */
+.logo-icone {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column-reverse; /* painel em cima, formulário embaixo */
+  }
+
+  .cadastro,
+  .painel-lateral {
+    padding: 32px 24px;
+  }
+
+  .painel-lateral h2 {
+    font-size: 26px;
+    margin-bottom: 0;
+  }
+
+  .foto-pet,
+  .painel-texto {
+    display: none; /* esconde imagem e rodapé no celular para economizar espaço */
+  }
+}

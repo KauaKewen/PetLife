@@ -1,0 +1,359 @@
+/* ==========================================
+   PÁGINA DE ENTRAR (LOGIN) - PetLife
+   Usa as variáveis do style.css (carregar o style.css ANTES deste arquivo)
+   ========================================== */
+
+/* ---------- Fundo e centralização da página ---------- */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #f7f9f7;
+}
+
+/* ---------- Cartão principal (2 colunas) ---------- */
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  background-color: var(--card-bg);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================
+   COLUNA ESQUERDA - PAINEL VERDE
+   ========================================== */
+.painel-lateral {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  background-color: #e8f7ef;
+}
+
+.painel-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  position: relative;
+  z-index: 1;
+}
+
+.painel-logo img {
+  width: 34px;
+  height: auto;
+}
+
+.painel-lateral h2 {
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin: 18px 0 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.foto-pet {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.painel-texto {
+  margin-top: auto;
+  padding-top: 50px;
+  font-size: 14px;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+}
+
+/* Círculos decorativos no canto superior direito */
+.painel-lateral::before,
+.painel-lateral::after {
+  content: "";
+  position: absolute;
+  border: 1.5px solid rgba(52, 211, 153, 0.2);
+  border-radius: 50%;
+}
+
+.painel-lateral::before {
+  width: 100px;
+  height: 100px;
+  top: 40px;
+  right: 120px;
+}
+
+.painel-lateral::after {
+  width: 34px;
+  height: 34px;
+  top: 10px;
+  right: 80px;
+}
+
+/* ==========================================
+   COLUNA DIREITA - FORMULÁRIO
+   ========================================== */
+.login {
+  flex: 1;
+  padding: 60px 56px;
+}
+
+.login h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.login > p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 6px 0 28px;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.login input[type="email"],
+.login input[type="password"] {
+  width: 100%;
+  padding: 13px 16px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  color: var(--text-dark);
+  background-color: #f6faf8;
+  border: 1.5px solid #dbe7e0;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.login input::placeholder {
+  color: #94a3b8;
+}
+
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+  background-color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
+}
+
+/* ---------- Linha "Lembrar de mim" + "Esqueceu sua senha?" ---------- */
+.opcoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: -4px 0 22px;
+}
+
+.login .lembrar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.lembrar input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.recuperar {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0284c7;
+  text-decoration: none;
+}
+
+.recuperar:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Botão principal ---------- */
+.login button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+
+/* ---------- Divisor "ou" ---------- */
+.divisor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.divisor::before,
+.divisor::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+/* ---------- Botões Google e Apple ---------- */
+.botoes-sociais {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-social {
+  flex: 1;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  background-color: #ffffff;
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-social:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* ---------- "Não tem uma conta? Criar conta grátis" ---------- */
+.cadastro {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.cadastro a {
+  margin-left: 4px;
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+.cadastro a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   RESPONSIVO (celular / telas pequenas)
+   ========================================== */
+/* Mensagem de erro do login */
+.erro-login {
+  min-height: 20px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: #ef4444;
+}
+
+/* Caixa "Conta de teste" */
+.conta-teste {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background-color: #f0fdf6;
+  border: 1.5px dashed #86efac;
+  border-radius: 12px;
+}
+
+.conta-teste strong {
+  color: var(--primary-hover);
+}
+
+.conta-teste button {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary-hover);
+  background-color: #ffffff;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.conta-teste button:hover {
+  background-color: #ecfdf5;
+}
+
+/* Ícone verde do logo (patinha) */
+.logo-icone {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column; /* painel em cima, formulário embaixo */
+  }
+
+  .login,
+  .painel-lateral {
+    padding: 32px 24px;
+  }
+
+  .painel-lateral h2 {
+    font-size: 26px;
+    margin-bottom: 0;
+  }
+
+  .foto-pet,
+  .painel-texto {
+    display: none; /* esconde imagem e rodapé no celular */
+  }
+}

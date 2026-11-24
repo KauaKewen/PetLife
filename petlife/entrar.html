@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar</title>
+    <!-- AJUSTE: links dos CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="entrar.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- AJUSTE: painel da esquerda do protótipo (troque os caminhos das imagens pelos do projeto) -->
+        <aside class="painel-lateral">
+            <div class="painel-logo">
+                <div class="logo-icone"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg></div>
+                <span>PetLife</span>
+            </div>
+            <h2>A saúde do seu pet sempre em mãos.</h2>
+            <img class="foto-pet" src="img/gato.jpg" alt="Filhote de gato">
+            <p class="painel-texto">Mais de 15.000 tutores já estão protegendo seus melhores amigos de forma digital.</p>
+        </aside>
+
+        <div class="login">
+            <!-- AJUSTE: textos trocados para seguir o protótipo (o "PetLife" foi para o painel da esquerda) -->
+            <h1>Bem-vindo de volta!</h1>
+            <p>Insira suas credenciais para acessar a carteirinha do seu pet.</p>
+            <form>
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+                <!-- AJUSTE: "Lembrar de mim" + link de recuperar senha na mesma linha -->
+                <div class="opcoes">
+                    <label class="lembrar">
+                        <input type="checkbox" id="lembrar">
+                        <span>Lembrar de mim</span>
+                    </label>
+                    <a href="#" class="recuperar">Esqueceu sua senha?</a>
+                </div>
+
+                <button type="submit">Entrar na minha conta</button>
+                <p class="erro-login" id="erro-login"></p>
+            </form>
+
+            <!-- AJUSTE: conta de teste para a apresentação -->
+            <div class="conta-teste">
+                <span><strong>Conta de teste</strong><br>maria.silva@email.com · senha: petlife123</span>
+                <button type="button" id="usar-conta-teste">Preencher</button>
+            </div>
+
+            <!-- AJUSTE: divisor "ou" + botões Google e Apple (só visual por enquanto) -->
+            <div class="divisor"><span>ou</span></div>
+            <div class="botoes-sociais">
+                <button type="button" class="btn-social">Google</button>
+                <button type="button" class="btn-social">Apple</button>
+            </div>
+
+            <!-- AJUSTE: link apontando para cadastro.html e texto do protótipo -->
+            <p class="cadastro">Não tem uma conta? <a href="cadastro.html">Criar conta grátis</a></p>
+        </div>
+
+    </div>
+
+    <!-- AJUSTE: login usando a conta criada no cadastro (localStorage) ou a conta de teste -->
+    <script>
+        // Conta que sempre funciona, mesmo sem ninguém ter se cadastrado
+        const CONTA_TESTE = { nome: "Maria Silva", email: "maria.silva@email.com", senha: "petlife123" };
+
+        const formulario = document.querySelector("form");
+        const campoEmail = document.getElementById("email");
+        const campoSenha = document.getElementById("senha");
+        const erro = document.getElementById("erro-login");
+
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const email = campoEmail.value.trim().toLowerCase();
+            const senha = campoSenha.value;
+
+            let usuario = null;
+            try { usuario = JSON.parse(localStorage.getItem("usuario")); } catch (e) {}
+
+            const contaCriada = usuario && usuario.email && usuario.email.trim().toLowerCase() === email && usuario.senha === senha;
+            const contaTeste = email === CONTA_TESTE.email && senha === CONTA_TESTE.senha;
+
+            if (contaCriada) {
+                window.location.href = "dashboard.html"; // página que abre depois de entrar
+            } else if (contaTeste) {
+                // Entrou com a conta de teste: ela passa a ser o usuário das outras páginas
+                localStorage.setItem("usuario", JSON.stringify(CONTA_TESTE));
+                window.location.href = "dashboard.html";
+            } else {
+                erro.textContent = "E-mail ou senha incorretos. Confira os dados ou crie uma conta.";
+                campoSenha.value = "";
+                campoSenha.focus();
+            }
+        });
+
+        // Some o aviso de erro quando a pessoa volta a digitar
+        [campoEmail, campoSenha].forEach(campo => {
+            campo.addEventListener("input", () => { erro.textContent = ""; });
+        });
+
+        // Botão "Preencher": coloca a conta de teste nos campos
+        document.getElementById("usar-conta-teste").addEventListener("click", function() {
+            campoEmail.value = CONTA_TESTE.email;
+            campoSenha.value = CONTA_TESTE.senha;
+            erro.textContent = "";
+        });
+    </script>
+</body>
+</html>

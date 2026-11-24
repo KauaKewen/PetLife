@@ -1,0 +1,876 @@
+/* ==========================================
+   PÁGINA CARTEIRINHA DIGITAL - PetLife
+   Usa as variáveis do style.css (carregar o style.css ANTES deste arquivo)
+   ========================================== */
+
+body {
+  background-color: #f7f9f7;
+}
+
+.pagina {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Rótulos pequenos (RAÇA, IDADE, ID...) */
+.rotulo {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+/* Cartão branco padrão */
+.cartao {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 22px;
+}
+
+/* ==========================================
+   1. MENU LATERAL
+   ========================================== */
+.menu-lateral {
+  width: 270px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  background-color: #ffffff;
+  border-right: 1px solid var(--border-color);
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 44px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.logo-icone {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.menu:hover {
+  background-color: #f1f5f9;
+}
+
+.menu.ativo {
+  background-color: #ecfdf5;
+  color: var(--primary-hover);
+  font-weight: 600;
+}
+
+.menu.ativo svg {
+  color: var(--primary-hover);
+}
+
+/* Cartão "Área do Vet" */
+.card-vet {
+  margin-top: auto;
+  padding: 20px;
+  border-radius: 18px;
+  background-color: #e8f4fd;
+}
+
+.card-vet-titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0284c7;
+  margin-bottom: 8px;
+}
+
+.card-vet p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.card-vet a {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0284c7;
+  text-decoration: none;
+}
+
+.card-vet a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   2. CONTEÚDO
+   ========================================== */
+.conteudo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.conteudo-interno {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px 50px;
+}
+
+/* Barra do topo: voltar + botões */
+.barra-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.voltar {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.voltar:hover {
+  color: var(--primary-hover);
+}
+
+.acoes {
+  display: flex;
+  gap: 12px;
+}
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.botao-compartilhar {
+  color: var(--primary-hover);
+  background-color: #ffffff;
+  border: 1.5px solid var(--primary-color);
+}
+
+.botao-compartilhar:hover {
+  background-color: #ecfdf5;
+}
+
+.botao-pdf {
+  color: var(--text-dark);
+  background-color: #ffffff;
+  border: 1.5px solid var(--border-color);
+}
+
+.botao-pdf:hover {
+  background-color: #f1f5f9;
+}
+
+/* ==========================================
+   3. PERFIL DO PET (cartão do topo)
+   ========================================== */
+.perfil-pet {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+}
+
+.perfil-foto {
+  width: 112px;
+  height: 112px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #ecfdf5;
+}
+
+.perfil-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.perfil-nome {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.perfil-nome input {
+  width: 260px;
+  field-sizing: content; /* o campo cresce do tamanho do nome digitado */
+  min-width: 6ch;
+  max-width: 100%;
+  padding: 2px 0;
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--text-dark);
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed transparent;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.perfil-nome input:hover {
+  border-bottom-color: #cbd5e1;
+}
+
+.perfil-nome input:focus {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.perfil-nome input::placeholder {
+  color: #94a3b8;
+}
+
+.selo {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #15803d;
+  background-color: #dcfce7;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.ultima-vacina {
+  flex-shrink: 0;
+  padding: 16px 20px;
+  text-align: right;
+  background-color: #f6faf8;
+  border-radius: 16px;
+}
+
+.ultima-data {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 2px 0 4px;
+}
+
+.ultima-vacina a {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+.ultima-vacina a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   4. GRADE PRINCIPAL (2 colunas)
+   ========================================== */
+.grade-principal {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.coluna-esquerda,
+.coluna-direita {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---------- Carteira Digital (cartão verde) ---------- */
+.carteira-digital {
+  padding: 28px;
+  background-color: #e8f7ef;
+  border: 1.5px solid #86efac;
+  border-radius: 24px;
+}
+
+.carteira-topo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.carteira-marca {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border-radius: 20px;
+}
+
+.carteira-titulo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #15803d;
+}
+
+.carteira-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.carteira-corpo {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 18px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 18px;
+}
+
+.carteira-foto {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 18px;
+  background-color: #ecfdf5;
+}
+
+.carteira-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Campos de texto da carteirinha (parecem texto, mas dá pra digitar) */
+.campo input,
+.linha input {
+  width: 100%;
+  padding: 3px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px dashed #cbd5e1;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.campo input:focus,
+.linha input:focus {
+  border-bottom: 1.5px solid var(--primary-color);
+}
+
+.campo input::placeholder,
+.linha input::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.campo-nome input {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.campo-duplo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* QR Code */
+.carteira-qr {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.carteira-qr img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 2px solid var(--primary-color);
+  border-radius: 20px;
+}
+
+.carteira-qr a {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+.carteira-qr a:hover {
+  text-decoration: underline;
+}
+
+/* Rodapé da carteira: ID + frase */
+.carteira-rodape {
+  margin-top: 18px;
+}
+
+.carteira-id {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  border-radius: 14px;
+}
+
+.id-numero {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.link-copiar {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-hover);
+  text-decoration: none;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+.link-copiar:hover {
+  background-color: #ecfdf5;
+}
+
+.carteira-frase {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f7a4e;
+}
+
+/* ---------- Cartões "dica" (calendário, resumo, cuidados) ---------- */
+.dica {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+a.dica:hover {
+  border-color: #a7f3d0;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.icone {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ecfdf5;
+  border-radius: 14px;
+}
+
+.dica > div:not(.icone) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dica b {
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+.dica > div span {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Setinha "›" no final */
+.dica > span {
+  margin-left: auto;
+  font-size: 26px;
+  line-height: 1;
+  color: #94a3b8;
+}
+
+/* Resumo: Aplicadas / Pendentes / Próximas doses */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.resumo .dica {
+  padding: 16px;
+}
+
+.resumo .dica b {
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+/* ---------- Histórico de vacinas ---------- */
+.historico {
+  padding: 26px 28px;
+  overflow-x: auto;
+}
+
+.historico-titulo {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 14px;
+}
+
+.linha {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.5fr 0.9fr;
+  align-items: center;
+  gap: 14px;
+  min-width: 520px;
+  padding: 15px 0;
+  font-size: 14px;
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.linha:last-child {
+  border-bottom: none;
+}
+
+.linha b {
+  font-weight: 700;
+}
+
+.linha-cabecalho {
+  padding-top: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.linha input {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pilula {
+  display: inline-block;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.pilula.aplicada {
+  color: #15803d;
+  background-color: #dcfce7;
+}
+
+.pilula.pendente {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+/* ==========================================
+   5. CUIDE BEM DO SEU PET
+   ========================================== */
+.cuidados {
+  margin-top: 36px;
+}
+
+.cuidados-titulo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.cuidados-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.cuidados-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ==========================================
+   6. RODAPÉ
+   ========================================== */
+.rodape {
+  margin-top: auto;
+}
+
+.rodape-info {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 36px 40px 40px;
+  background-color: #eef8f1;
+}
+
+.rodape-linha {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+}
+
+.rodape-bloco {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.circulo {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2f7d4f;
+  border-radius: 50%;
+}
+
+.rodape-t {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.rodape-t b {
+  display: block;
+  font-size: 15px;
+  color: #14452f;
+}
+
+.sep {
+  width: 1px;
+  height: 48px;
+  background-color: #cfe7d7;
+}
+
+.rodape-base {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 40px;
+  background-color: #14452f;
+}
+
+.rodape-onda {
+  position: absolute;
+  top: -13px;
+  left: 0;
+  width: 100%;
+  height: 14px;
+}
+
+.redes {
+  display: flex;
+  gap: 10px;
+}
+
+.redes a {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.redes a:hover {
+  transform: scale(1.1);
+}
+
+.rodape-frase {
+  font-size: 13px;
+  color: #cde9d6;
+}
+
+.rodape-enfeite {
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   7. RESPONSIVO
+   ========================================== */
+@media (max-width: 1100px) {
+  .grade-principal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Tablet e celular: menu vira uma barra no topo */
+@media (max-width: 900px) {
+  .pagina {
+    flex-direction: column;
+  }
+
+  .menu-lateral {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .menu-logo {
+    margin-bottom: 12px;
+  }
+
+  .menu-links {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+
+  .menu {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .card-vet {
+    display: none;
+  }
+
+  .conteudo-interno {
+    padding: 24px 16px 40px;
+  }
+
+  .sep {
+    display: none;
+  }
+
+  .rodape-info,
+  .rodape-base {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .perfil-pet {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .perfil-nome {
+    justify-content: center;
+  }
+
+  .perfil-nome input {
+    text-align: center;
+    font-size: 28px;
+  }
+
+  .ultima-vacina {
+    width: 100%;
+    text-align: center;
+  }
+
+  .acoes {
+    width: 100%;
+  }
+
+  .botao {
+    flex: 1;
+    justify-content: center;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .carteira-corpo {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .carteira-dados {
+    width: 100%;
+  }
+
+  .resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .rodape-enfeite {
+    display: none;
+  }
+}

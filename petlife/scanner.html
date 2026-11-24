@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Veterinário | PetLife</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="scanner.css">
+</head>
+<body>
+
+<!-- ========== BARRA DO TOPO (escura) ========== -->
+<header class="barra-vet">
+  <a href="index.html" class="vet-logo">
+    <div class="logo-icone"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg></div>
+    <span>PetLife</span>
+    <span class="selo-vet">Veterinário</span>
+  </a>
+  <div class="vet-usuario">
+    <span class="vet-nome"><span class="ponto-online"></span>Dr. Carlos Eduardo (Clínica PetAmigo)</span>
+    <a href="index.html" class="btn-sair">Sair do painel vet</a>
+  </div>
+</header>
+
+<!-- ========== CONTEÚDO ========== -->
+<main class="painel">
+
+  <!-- Coluna esquerda: câmera -->
+  <section class="coluna-scanner">
+    <h1>Escaneador de Carteirinhas</h1>
+
+    <div class="camera">
+      <img src="img/scanner.jpg" alt="Câmera apontada para o QR Code da carteirinha">
+      <div class="moldura-qr"><span class="linha-scan"></span></div>
+      <p class="aviso-camera">Aponte a câmera para o QR Code do pet</p>
+    </div>
+
+    <div class="info-registro">
+      <h2>Registro Profissional Vinculado</h2>
+      <p>Todos os registros efetuados por este escaneador serão assinados digitalmente com o seu CRMV.</p>
+    </div>
+  </section>
+
+  <!-- Coluna direita: pet + formulário + lançamentos -->
+  <section class="coluna-registro">
+
+    <div class="cartao pet-escaneado">
+      <img src="img/luna.jpg" alt="Foto da Luna">
+      <div>
+        <h2>Luna <span class="tag-especie">Cão</span></h2>
+        <p>Golden Retriever · Fêmea · 3 anos · Tutor: Maria Silva</p>
+      </div>
+    </div>
+
+    <form class="cartao form-vacina" id="form-vacina">
+      <h2>Registrar Vacinação Realizada</h2>
+
+      <label for="vacina">Nome da Vacina</label>
+      <input type="text" id="vacina" placeholder="Ex: Antirrábica Canina" required>
+
+      <label for="data">Data de Aplicação</label>
+      <input type="date" id="data" required>
+
+      <label for="lote">Número do Lote</label>
+      <input type="text" id="lote" placeholder="Ex: LT-93812X" required>
+
+      <label for="observacoes">Observações de saúde</label>
+      <input type="text" id="observacoes" placeholder="Nenhuma reação observada">
+
+      <div class="form-botoes">
+        <button type="submit" class="btn-confirmar">Confirmar e assinar registro</button>
+        <button type="reset" class="btn-limpar">Limpar escaneador</button>
+      </div>
+
+      <p class="mensagem-sucesso" id="mensagem-sucesso">✓ Vacinação registrada e assinada com sucesso!</p>
+    </form>
+
+    <div class="cartao lancamentos">
+      <h2>Seus Últimos Lançamentos</h2>
+      <ul id="lista-lancamentos">
+        <li>
+          <svg class="icone-ok" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg>
+          <span class="lancamento-texto">Registrou <b>V10</b> (Lote: LT-9381A) para <b>Thor</b> (Bulldog Francês) de Maria Silva</span>
+          <span class="lancamento-tempo">Há 5 minutos</span>
+        </li>
+        <li>
+          <svg class="icone-ok" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg>
+          <span class="lancamento-texto">Registrou <b>Tríplice Felina</b> (Lote: TF-4091B) para <b>Floquinho</b> (Persa) de Julio Cesar</span>
+          <span class="lancamento-tempo">Há 1 hora</span>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+</main>
+
+<script>
+  const form = document.getElementById("form-vacina");
+  const lista = document.getElementById("lista-lancamentos");
+  const mensagem = document.getElementById("mensagem-sucesso");
+
+  // Ao confirmar: adiciona o registro no topo de "Seus Últimos Lançamentos"
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const vacina = document.getElementById("vacina").value.trim();
+    const lote = document.getElementById("lote").value.trim();
+
+    const item = document.createElement("li");
+    item.innerHTML = `
+      <svg class="icone-ok" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg>
+      <span class="lancamento-texto">Registrou <b></b> (Lote: <span class="lote"></span>) para <b>Luna</b> (Golden Retriever) de Maria Silva</span>
+      <span class="lancamento-tempo">Agora</span>
+    `;
+    // textContent evita que algo digitado vire código HTML
+    item.querySelector("b").textContent = vacina;
+    item.querySelector(".lote").textContent = lote;
+    lista.prepend(item);
+
+    form.reset();
+    mensagem.classList.add("visivel");
+    setTimeout(() => mensagem.classList.remove("visivel"), 3000);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar</title>
+    <!-- AJUSTE: links dos CSS (troque "style.css" pelo nome do CSS da página inicial, se for outro) -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+    <div class="container">
+        <div class="cadastro">
+            <!-- AJUSTE: textos trocados para seguir o protótipo (o "PetLife" foi para o painel da direita) -->
+            <h1>Crie sua conta</h1>
+            <P>Cadastre-se em segundos e garanta a segurança das vacinas do seu pet.</P>
+            <form>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+                <label for="sobrenome">Sobrenome</label>
+                <input type="text" id="sobrenome" placeholder="Digite seu sobrenome" required>
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+                <!-- AJUSTE: campo telefone -->
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" placeholder="(11) 99999-9999" required>
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Mínimo 8 caracteres" minlength="8" required>
+
+                <!-- AJUSTE: campo confirmar senha + aviso de erro -->
+                <label for="confirmar-senha">Confirmar senha</label>
+                <input type="password" id="confirmar-senha" placeholder="Repita a senha" required>
+                <p id="erro-senha" class="erro" style="display: none;">As senhas não são iguais.</p>
+
+                <!-- AJUSTE: aceite dos termos de uso -->
+                <label class="termos">
+                    <input type="checkbox" id="termos" required>
+                    <span>Li e aceito voluntariamente os <a href="#">termos de uso</a> e a <a href="#">política de privacidade</a> do PetLife.</span>
+                </label>
+
+                <button type="submit">Pronto! Cadastre</button>
+
+                <!-- AJUSTE: link "Já tem conta?" do protótipo -->
+                <p class="link-entrar">Já tem conta?<a href="entrar.html">Acesse aqui</a></p>
+
+            </form>
+            <div id="mensagem" style="display: none;">
+                <h2>Parabéns!</h2>
+                <p>Cadastro feito com sucesso.</p>
+
+                <button  onclick="window.location.href='entrar.html'">Acesse sua conta</button>
+
+            </div>
+
+        </div>
+
+        <!-- AJUSTE: painel da direita do protótipo (troque os caminhos das imagens pelos do projeto) -->
+        <aside class="painel-lateral">
+            <div class="painel-logo">
+                <div class="logo-icone"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"></ellipse><ellipse cx="10" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="14.5" cy="6" rx="2" ry="2.6"></ellipse><ellipse cx="18.5" cy="10" rx="2" ry="2.6"></ellipse><path d="M12 11c3 0 6 3.4 6 6 0 2-1.8 2.6-3 2.2-1-.4-2-.6-3-.6s-2 .2-3 .6c-1.2.4-3-.2-3-2.2 0-2.6 3-6 6-6z"></path></svg></div>
+                <span>PetLife</span>
+            </div>
+            <h2>A carteirinha que nunca se perde.</h2>
+            <img class="foto-pet" src="img/cachorro.jpg" alt="Filhote de cachorro">
+            <p class="painel-texto">Mantenha seu amigo de quatro patas protegido de forma descomplicada.</p>
+        </aside>
+    </div>
+    <script>
+        const formulario=document.querySelector("form");
+        formulario.addEventListener("submit", function(event){event.preventDefault();
+
+        // AJUSTE: confere se as duas senhas são iguais antes de cadastrar
+        const senha = document.getElementById("senha").value;
+        const confirmar = document.getElementById("confirmar-senha").value;
+        if (senha !== confirmar) {
+            document.getElementById("erro-senha").style.display="block";
+            return;
+        }
+
+        // AJUSTE: guarda o usuário no navegador (localStorage) para testar o login sem banco de dados
+        const usuario = {
+            nome: (document.getElementById("nome").value.trim() + " " + document.getElementById("sobrenome").value.trim()).trim(),
+            email: document.getElementById("email").value.trim(),
+            senha: senha
+        };
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+
+        formulario.style.display="none";
+
+        document.getElementById("mensagem").style.display="block";
+        });
+    </script>
+</body>
+</html>

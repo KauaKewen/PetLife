@@ -1,0 +1,288 @@
+/* ==========================================
+   MODO ESCURO - PetLife
+   Carregar DEPOIS do CSS da página.
+   Funciona quando o <html> tem a classe "modo-escuro" (o modo-escuro.js coloca).
+   ========================================== */
+
+/* 1. Troca as cores principais (variáveis do style.css) */
+html.modo-escuro {
+  --bg-light: #0f1712;
+  --card-bg: #17221b;
+  --text-dark: #e5eee8;
+  --text-muted: #9fb0a7;
+  --border-color: #2a3a30;
+
+  /* cores extras usadas só no modo escuro */
+  --campo-bg: #1d2a22;
+  --campo-borda: #33463a;
+  --verde-suave: rgba(52, 211, 153, 0.14);
+  --azul-suave: rgba(56, 189, 248, 0.14);
+  --vermelho-suave: rgba(248, 113, 113, 0.14);
+
+  color-scheme: dark; /* calendário, barras de rolagem etc. também ficam escuros */
+}
+
+html.modo-escuro body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* Transição suave ao ligar/desligar */
+html.modo-escuro body,
+html.modo-escuro .menu-lateral,
+html.modo-escuro .cartao,
+html.modo-escuro [class*="card-"] {
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+/* ==========================================
+   2. FUNDOS QUE ERAM BRANCOS → cor de cartão
+   ========================================== */
+html.modo-escuro .menu-lateral,
+html.modo-escuro .botao-compartilhar,
+html.modo-escuro .botao-pdf,
+html.modo-escuro .carteira-corpo,
+html.modo-escuro .carteira-id,
+html.modo-escuro .campo-busca,
+html.modo-escuro .cidade,
+html.modo-escuro .filtro:not(.ativo),
+html.modo-escuro .btn-ver-mapa,
+html.modo-escuro .btn-rota,
+html.modo-escuro .lista-vazia,
+html.modo-escuro .painel-rota,
+html.modo-escuro .transport-btn:not(.ativo),
+html.modo-escuro .btn-social {
+  background-color: var(--card-bg);
+}
+
+/* Fundos cinza-claros → um pouco mais claros que o cartão */
+html.modo-escuro .ultima-vacina,
+html.modo-escuro .anuncio,
+html.modo-escuro .rota-info,
+html.modo-escuro .menu:hover,
+html.modo-escuro .botao-pdf:hover,
+html.modo-escuro .btn-social:hover {
+  background-color: var(--campo-bg);
+}
+
+/* ==========================================
+   3. CAMPOS DE FORMULÁRIO
+   ========================================== */
+html.modo-escuro .dados-pessoais input,
+html.modo-escuro .form-vacina input {
+  background-color: var(--campo-bg);
+  border-color: var(--campo-borda);
+}
+
+html.modo-escuro .dados-pessoais input:focus,
+html.modo-escuro .form-vacina input:focus {
+  background-color: var(--card-bg);
+  border-color: var(--primary-color);
+}
+
+html.modo-escuro .campo input,
+html.modo-escuro .linha input {
+  border-bottom-color: var(--campo-borda);
+}
+
+/* Interruptor desligado (o ligado continua verde) */
+html.modo-escuro .interruptor:not(:checked) {
+  background-color: #33463a;
+}
+
+/* ==========================================
+   4. DESTAQUES VERDES, AZUIS E VERMELHOS (versões escuras)
+   ========================================== */
+html.modo-escuro .menu.ativo,
+html.modo-escuro .icone,
+html.modo-escuro .resumo-icone.verde,
+html.modo-escuro .btn-carteirinha:hover,
+html.modo-escuro .btn-ver-mapa:hover,
+html.modo-escuro .btn-rota:hover,
+html.modo-escuro .botao-compartilhar:hover,
+html.modo-escuro .link-copiar:hover,
+html.modo-escuro .perfil-foto,
+html.modo-escuro .carteira-foto {
+  background-color: var(--verde-suave);
+}
+
+html.modo-escuro .menu.ativo,
+html.modo-escuro .menu.ativo svg,
+html.modo-escuro .btn-carteirinha,
+html.modo-escuro .botao-compartilhar,
+html.modo-escuro .btn-ver-mapa,
+html.modo-escuro .btn-rota,
+html.modo-escuro .link-copiar,
+html.modo-escuro .ultima-vacina a,
+html.modo-escuro .lista-pets a,
+html.modo-escuro .status.aberto,
+html.modo-escuro .mensagem-salvo,
+html.modo-escuro .carteira-qr a {
+  color: var(--primary-color);
+}
+
+/* Etiquetas verdes (Cão, Aplicada, Confirmado, Ativo...) */
+html.modo-escuro .tag-especie,
+html.modo-escuro .selo,
+html.modo-escuro .pilula.aplicada,
+html.modo-escuro .status.confirmado,
+html.modo-escuro .status-ativo {
+  color: #6ee7b7;
+  background-color: var(--verde-suave);
+}
+
+/* Azuis */
+html.modo-escuro .card-vet,
+html.modo-escuro .resumo-icone.azul,
+html.modo-escuro .status.agendado,
+html.modo-escuro .distancia {
+  background-color: var(--azul-suave);
+}
+
+html.modo-escuro .card-vet h4,
+html.modo-escuro .card-vet a,
+html.modo-escuro .card-vet-titulo,
+html.modo-escuro .status.agendado,
+html.modo-escuro .distancia,
+html.modo-escuro .link-editar,
+html.modo-escuro .recuperar {
+  color: #7dd3fc;
+}
+
+/* Vermelhos */
+html.modo-escuro .resumo-icone.vermelho,
+html.modo-escuro .pilula.pendente {
+  background-color: var(--vermelho-suave);
+}
+
+html.modo-escuro .pilula.pendente {
+  color: #fca5a5;
+}
+
+/* Ícones com mais contraste no fundo escuro */
+html.modo-escuro .resumo-icone.azul {
+  color: #7dd3fc;
+}
+
+html.modo-escuro .resumo-icone.verde {
+  color: var(--primary-color);
+}
+
+html.modo-escuro .icone svg {
+  stroke: var(--primary-color);
+}
+
+html.modo-escuro .card-atencao {
+  background-color: rgba(248, 113, 113, 0.08);
+  border-color: rgba(248, 113, 113, 0.4);
+}
+
+/* ==========================================
+   5. CARTEIRINHA (cartão verde e rodapé)
+   ========================================== */
+html.modo-escuro .carteira-digital {
+  background-color: #14281d;
+  border-color: #1f6b45;
+}
+
+html.modo-escuro .carteira-titulo,
+html.modo-escuro .carteira-frase {
+  color: #6ee7b7;
+}
+
+html.modo-escuro .rodape-info {
+  background-color: #132019;
+}
+
+html.modo-escuro .rodape-t b {
+  color: #d1fae5;
+}
+
+html.modo-escuro .sep {
+  background-color: var(--border-color);
+}
+
+/* ==========================================
+   6. MAPA (popup do Leaflet continua branco)
+   ========================================== */
+html.modo-escuro .popup-local h4 {
+  color: #1e293b;
+}
+
+html.modo-escuro .dica-mapa {
+  background-color: rgba(23, 34, 27, 0.92);
+}
+
+/* ==========================================
+   7. CADASTRAR NOVO PET
+   ========================================== */
+html.modo-escuro .campos input[type="text"],
+html.modo-escuro .campos input[type="number"],
+html.modo-escuro .campos input[type="date"],
+html.modo-escuro .campos select,
+html.modo-escuro .campos textarea {
+  background-color: var(--campo-bg);
+  border-color: var(--campo-borda);
+}
+
+html.modo-escuro .campos input:focus,
+html.modo-escuro .campos select:focus,
+html.modo-escuro .campos textarea:focus {
+  background-color: var(--card-bg);
+  border-color: var(--primary-color);
+}
+
+html.modo-escuro .caixa-foto:hover,
+html.modo-escuro .foto-icone {
+  background-color: var(--verde-suave);
+}
+
+html.modo-escuro .caixa-foto strong,
+html.modo-escuro .foto-icone {
+  color: var(--primary-color);
+}
+
+html.modo-escuro .pata-decorativa {
+  color: #2a3a30;
+}
+
+html.modo-escuro .radio input:not(:checked) {
+  border-color: var(--campo-borda);
+}
+
+html.modo-escuro .btn-cancelar:hover {
+  background-color: var(--campo-bg);
+}
+
+/* ==========================================
+   8. PORTAL DE ADOÇÃO
+   ========================================== */
+html.modo-escuro .filter-bar select,
+html.modo-escuro .filter-bar input,
+html.modo-escuro .form-group input,
+html.modo-escuro .form-group select,
+html.modo-escuro .form-group textarea {
+  background-color: var(--campo-bg);
+  border-color: var(--campo-borda);
+}
+
+html.modo-escuro .form-group input:focus,
+html.modo-escuro .form-group select:focus,
+html.modo-escuro .form-group textarea:focus {
+  background-color: var(--card-bg);
+  border-color: var(--primary-color);
+}
+
+html.modo-escuro .badge {
+  color: #7dd3fc;
+  background-color: var(--azul-suave);
+}
+
+html.modo-escuro .tag {
+  color: #6ee7b7;
+  background-color: var(--verde-suave);
+}
+
+html.modo-escuro .pet-img {
+  background-color: var(--verde-suave);
+}

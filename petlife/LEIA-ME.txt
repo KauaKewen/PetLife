@@ -1,0 +1,32 @@
+PETLIFE - CARTEIRINHA DE VACINAÇÃO ONLINE
+==========================================
+
+COMO ABRIR
+Abra o arquivo index.html no navegador (Chrome, Edge ou Firefox).
+O mapa e as fotos da página de adoção precisam de internet.
+
+CONTA DE TESTE (funciona sempre)
+E-mail: maria.silva@email.com
+Senha:  petlife123
+Na tela de login tem o botão "Preencher", que coloca esses dados sozinho.
+
+Também dá para criar uma conta nova em "Criar Conta" e entrar com ela.
+Os dados ficam salvos só no navegador (localStorage), não existe banco de dados.
+
+PÁGINAS
+index.html        Página inicial
+cadastro.html     Criar conta
+entrar.html       Login
+dashboard.html    Área do tutor (depois do login)
+carteirinha.html  Carteirinha digital do pet
+mapa.html         Pontos de vacinação
+adocao.html       Portal de adoção
+perfil.html       Meu perfil (tem o interruptor do Modo Escuro)
+novo-pet.html     Cadastrar novo pet
+scanner.html      Painel do veterinário
+
+CSS
+style.css         CSS geral (cores e página inicial) - carregado em todas as páginas
+[página].css      CSS de cada página
+modo-escuro.css   Cores do modo escuro
+modo-escuro.js    Liga/desliga e lembra o modo escuro
